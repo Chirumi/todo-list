@@ -16,7 +16,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _toDoList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoList */ \"./src/toDoList.js\");\n\n\n\nconst x = new _toDoList__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"Cook\", \"Dinner Time!\", \"Sat Sep 13\", \"1\")\nconsole.log(x)\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _toDoList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoList */ \"./src/toDoList.js\");\n\n\n\n\nconst x = new _toDoList__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"Cook\", \"Dinner Time!\", \"Sat Sep 13\", \"1\")\nconst projectX = new _projects__WEBPACK_IMPORTED_MODULE_0__[\"default\"](\"Today\")\nprojectX.projectArr.push(x)\n\nconsole.log(projectX)\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ }),
 
