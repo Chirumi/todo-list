@@ -16,7 +16,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _toDoList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoList */ \"./src/toDoList.js\");\n\n\n\n\nconst x = new _toDoList__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"Cook\", \"Dinner Time!\", \"Sat Sep 13\", \"1\")\nconst projectX = new _projects__WEBPACK_IMPORTED_MODULE_0__[\"default\"](\"Today\")\nprojectX.projectArr.push(x)\n\nconsole.log(projectX)\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui */ \"./src/ui.js\");\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _toDoList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDoList */ \"./src/toDoList.js\");\n\n\n\n\nconst x = new _toDoList__WEBPACK_IMPORTED_MODULE_2__[\"default\"](\"Cook\", \"Dinner Time!\", \"Sat Sep 13\", \"1\")\n\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ }),
 
@@ -37,6 +37,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass ToDoList {\n    constructor(title, description, dueDate, priority) {\n        this.title = title\n        this.description = description\n        this.dueDate = dueDate\n        this.priority = priority\n    }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ToDoList);\n\n//# sourceURL=webpack://todo-list/./src/toDoList.js?");
+
+/***/ }),
+
+/***/ "./src/ui.js":
+/*!*******************!*\
+  !*** ./src/ui.js ***!
+  \*******************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction ui() {\n    const container = document.querySelector(\".container\")\n    \n    const addToDoItem = document.createElement(\"button\")\n    addToDoItem.textContent = \"Add To-do item\"\n    addToDoItem.addEventListener(\"click\", () => {\n        const form = document.createElement(\"form\")\n        const input = document.createElement(\"input\")\n\n        form.appendChild(input)\n        container.appendChild(form)\n    })\n\n    container.appendChild(addToDoItem)\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ui());\n\n//# sourceURL=webpack://todo-list/./src/ui.js?");
 
 /***/ })
 
