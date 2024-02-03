@@ -6,3 +6,5 @@ class ToDoList {
         this.priority = priority
     }
 }
+
+export default ToDoList
