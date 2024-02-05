@@ -86,9 +86,12 @@ function toDoForm() {
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
+        const itemPriority = document.createElement("div")
+        itemPriority.textContent = newTask.priority
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemTitle)
         itemContainer.appendChild(itemDesc)
+        itemContainer.appendChild(itemPriority)
 
         document.getElementById("title").value = ""
         document.getElementById("description").value = ""
