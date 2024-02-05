@@ -1,4 +1,5 @@
 import ToDoList from "./toDoList"
+import "./style.css"
 
 const project = []
 
@@ -11,6 +12,7 @@ function ui() {
     addToDoItem.addEventListener("click", () => {
         const makeForm = toDoForm()
         container.appendChild(makeForm)
+        addToDoItem.style.display = "none"
     })
 
     container.appendChild(addToDoItem)
@@ -74,14 +76,17 @@ function toDoForm() {
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
         project.push(newTask)
 
+        document.querySelector(".addToDoItem").style.display = "block"
+        submitBtn.style.display = "none"
+
         // Appends todo item to DOM
         const itemContainer = document.createElement("div")
         const itemTitle = document.createElement("div")
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
-        item.appendChild(itemTitle)
-        item.appendChild(itemDesc)
+        itemContainer.appendChild(itemTitle)
+        itemContainer.appendChild(itemDesc)
 
         document.getElementById("title").value = ""
         document.getElementById("description").value = ""
@@ -89,8 +94,6 @@ function toDoForm() {
         document.getElementById("priority").value = ""
 
         document.querySelector(".container").appendChild(itemContainer)
-
-        console.log(project)
     })
 
     form.appendChild(title)
