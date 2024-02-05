@@ -85,8 +85,15 @@ function toDoForm() {
         const itemContainer = document.createElement("div")
         const itemDetails = document.createElement("div")
         itemDetails.addEventListener("click", () => {
-            // Expand to-do item
+            // Expand to-do item to edit/see
             const dialog = document.createElement("dialog")
+            dialog.addEventListener("click", () => {
+                dialog.close()
+            })
+            const dialogFormContainer = document.createElement("div")
+            dialogFormContainer.addEventListener("click", (e) => {
+                e.stopPropagation()
+            })
             const dialogForm = document.createElement("form")
             const dialogTitle = document.createElement("input")
             dialogTitle.value = itemTitle.textContent
@@ -124,7 +131,8 @@ function toDoForm() {
             dialogForm.appendChild(dialogDesc)
             dialogForm.appendChild(dialogDueDate)
             dialogForm.appendChild(dialogPriority)
-            dialog.appendChild(dialogForm)
+            dialogFormContainer.appendChild(dialogForm)
+            dialog.appendChild(dialogFormContainer)
             document.querySelector(".container").prepend(dialog)
             dialog.showModal()
         })
