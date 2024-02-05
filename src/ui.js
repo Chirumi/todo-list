@@ -75,6 +75,7 @@ function toDoForm() {
 
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
         project.push(newTask)
+        console.log(project)
 
         document.querySelector(".addToDoItem").style.display = "block"
         submitBtn.style.display = "none"
@@ -82,16 +83,63 @@ function toDoForm() {
         // Appends todo item to DOM
         const checkBox = checkBoxMaker()
         const itemContainer = document.createElement("div")
+        const itemDetails = document.createElement("div")
+        itemDetails.addEventListener("click", () => {
+            // Expand to-do item
+            const dialog = document.createElement("dialog")
+            const dialogForm = document.createElement("form")
+            const dialogTitle = document.createElement("input")
+            dialogTitle.value = itemTitle.textContent
+            const dialogDesc = document.createElement("input")
+            dialogDesc.value = itemDesc.textContent
+            const dialogDueDate = document.createElement("input")
+            dialogDueDate.type = "date"
+            dialogDueDate.value = newTask.dueDate
+            const dialogPriority = document.createElement("select")
+            dialogPriority.value = priority.textContent
+            const dialogPriorityOne = document.createElement("option")
+            dialogPriorityOne.value = "1"
+            dialogPriorityOne.textContent = 1
+            const dialogPriorityTwo = document.createElement("option")
+            dialogPriorityTwo.value = "2"
+            dialogPriorityTwo.textContent = 2
+            const dialogPriorityThree = document.createElement("option")
+            dialogPriorityThree.value = "3"
+            dialogPriorityThree.textContent = 3
+            if (newTask.priority == "1") {
+                dialogPriorityOne.setAttribute("selected", "selected")
+            }
+            else if (newTask.priority == "2") {
+                dialogPriorityTwo.setAttribute("selected", "selected")
+            }
+            else {
+                dialogPriorityThree.setAttribute("selected", "selected")
+            }
+
+            dialogPriority.appendChild(dialogPriorityOne)
+            dialogPriority.appendChild(dialogPriorityTwo)
+            dialogPriority.appendChild(dialogPriorityThree)
+            
+            dialogForm.appendChild(dialogTitle)
+            dialogForm.appendChild(dialogDesc)
+            dialogForm.appendChild(dialogDueDate)
+            dialogForm.appendChild(dialogPriority)
+            dialog.appendChild(dialogForm)
+            document.querySelector(".container").prepend(dialog)
+            dialog.showModal()
+        })
         const itemTitle = document.createElement("div")
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
         const itemPriority = document.createElement("div")
         itemPriority.textContent = newTask.priority
+        
+        itemDetails.appendChild(itemTitle)
+        itemDetails.appendChild(itemDesc)
+        itemDetails.appendChild(itemPriority)
         itemContainer.appendChild(checkBox)
-        itemContainer.appendChild(itemTitle)
-        itemContainer.appendChild(itemDesc)
-        itemContainer.appendChild(itemPriority)
+        itemContainer.appendChild(itemDetails)
 
         document.getElementById("title").value = ""
         document.getElementById("description").value = ""
@@ -115,7 +163,7 @@ function checkBoxMaker() {
     const radioBtn = document.createElement("input")
     radioBtn.type = "radio" 
     radioBtn.addEventListener("click", () => {
-        console.log(radioBtn.parentElement.remove())
+        radioBtn.parentElement.remove()
     })
     
     return radioBtn
