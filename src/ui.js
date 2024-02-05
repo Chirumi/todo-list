@@ -80,11 +80,13 @@ function toDoForm() {
         submitBtn.style.display = "none"
 
         // Appends todo item to DOM
+        const checkBox = checkBoxMaker()
         const itemContainer = document.createElement("div")
         const itemTitle = document.createElement("div")
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
+        itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemTitle)
         itemContainer.appendChild(itemDesc)
 
@@ -94,6 +96,7 @@ function toDoForm() {
         document.getElementById("priority").value = ""
 
         document.querySelector(".container").appendChild(itemContainer)
+        document.querySelector(".container").removeChild(form)
     })
 
     form.appendChild(title)
@@ -103,6 +106,16 @@ function toDoForm() {
     form.appendChild(submitBtn)
 
     return form
+}
+
+function checkBoxMaker() {
+    const radioBtn = document.createElement("input")
+    radioBtn.type = "radio" 
+    radioBtn.addEventListener("click", () => {
+        console.log(radioBtn.parentElement.remove())
+    })
+    
+    return radioBtn
 }
 
 export default ui()
