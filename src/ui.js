@@ -123,6 +123,22 @@ function toDoForm() {
                 dialogPriorityThree.setAttribute("selected", "selected")
             }
 
+            const editBtn = document.createElement("button")
+            editBtn.textContent = "Edit"
+            editBtn.type = "button"
+            editBtn.addEventListener("click", () => {
+                newTask.title = dialogTitle.value
+                itemTitle.textContent = newTask.title
+
+                newTask.description = dialogDesc.value
+                itemDesc.textContent = newTask.description
+
+                newTask.dueDate = dialogDueDate.value
+
+                newTask.priority = dialogPriority.value
+                itemPriority.textContent = newTask.priority
+            })
+
             dialogPriority.appendChild(dialogPriorityOne)
             dialogPriority.appendChild(dialogPriorityTwo)
             dialogPriority.appendChild(dialogPriorityThree)
@@ -131,6 +147,7 @@ function toDoForm() {
             dialogForm.appendChild(dialogDesc)
             dialogForm.appendChild(dialogDueDate)
             dialogForm.appendChild(dialogPriority)
+            dialogForm.appendChild(editBtn)
             dialogFormContainer.appendChild(dialogForm)
             dialog.appendChild(dialogFormContainer)
             document.querySelector(".container").prepend(dialog)
