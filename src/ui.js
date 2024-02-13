@@ -88,7 +88,7 @@ function toDoForm() {
             // Expand to-do item to edit/see
             const dialog = document.createElement("dialog")
             dialog.addEventListener("click", () => {
-                dialog.close()
+                document.querySelector(".container").removeChild(dialog)
             })
             const dialogFormContainer = document.createElement("div")
             dialogFormContainer.addEventListener("click", (e) => {
