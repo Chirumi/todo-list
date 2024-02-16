@@ -5,9 +5,9 @@
 import ToDoList from "./toDoList"
 import "./style.css"
 
-const currentProject = []
 const projectOne = []
-const projectTwo = []
+const currentArr = [projectOne]
+const projectsArr = [projectOne]
 
 function ui() {
     const container = document.querySelector(".container")
@@ -18,15 +18,22 @@ function ui() {
     addProject.textContent = "Add Project"
     addProject.classList.add("addProject")
     addProject.addEventListener("click", () => {
+        const project = []
+        projectsArr.push(project)
+        
         const newProject = document.createElement("button")
-        newProject.textContent = "ProjectTwo"
+        newProject.textContent = "PROJECTS"
         newProject.addEventListener("click", () => {
             eraseDOM(container)
             document.querySelector(".focus").classList.remove("focus")
             newProject.classList.add("focus")
-            repopulateDOM(projectTwo)
+            currentArr.length = 0
+
+            currentArr.push(project)
+            repopulateDOM(project)
         })
         sideBar.appendChild(newProject)
+        console.log(`currentArr = ${currentArr}`)
     })
 
     const project1 = document.createElement("button")
@@ -36,7 +43,11 @@ function ui() {
         eraseDOM(container)
         document.querySelector(".focus").classList.remove("focus")
         project1.classList.add("focus")
+        currentArr.length = 0
+        currentArr.push(projectOne)
         repopulateDOM(projectOne)
+
+        console.log(`currentArr = ${currentArr}`)
     })
     
     const addToDoItem = document.createElement("button")
@@ -205,13 +216,8 @@ function toDoForm() {
         e.preventDefault()
 
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
-        const selectedProject = document.querySelector(".focus")
-        if (selectedProject.textContent == "ProjectOne") {
-            projectOne.push(newTask)
-        }
-        else if (selectedProject.textContent == "ProjectTwo") {
-            projectTwo.push(newTask)
-        }
+        const focusedArr = currentArr[0]
+        focusedArr.push(newTask)
 
         document.querySelector(".addToDoItem").style.display = "block"
         submitBtn.style.display = "none"
