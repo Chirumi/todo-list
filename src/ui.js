@@ -20,24 +20,35 @@ function ui() {
     addProject.addEventListener("click", () => {
         const project = []
         projectsArr.push(project)
-        
-        const newProject = document.createElement("button")
-        newProject.textContent = "PROJECTS"
-        newProject.addEventListener("click", () => {
-            eraseDOM(container)
-            document.querySelector(".focus").classList.remove("focus")
-            newProject.classList.add("focus")
-            currentArr.length = 0
 
-            currentArr.push(project)
-            repopulateDOM(project)
+        const projectName = document.createElement("input")
+        const submitProjectName = document.createElement("button")
+        submitProjectName.textContent = "Add New Project"
+        submitProjectName.addEventListener("click", () => {
+            const newProject = document.createElement("button")
+            newProject.textContent = projectName.value
+            sideBar.appendChild(newProject)
+            
+            newProject.addEventListener("click", () => {
+                eraseDOM(container)
+                document.querySelector(".focus").classList.remove("focus")
+                newProject.classList.add("focus")
+                currentArr.length = 0
+
+                currentArr.push(project)
+                repopulateDOM(project)
+            })
+            sideBar.removeChild(projectName)
+            sideBar.removeChild(submitProjectName)
         })
-        sideBar.appendChild(newProject)
+
+        sideBar.appendChild(projectName)
+        sideBar.appendChild(submitProjectName)
         console.log(`currentArr = ${currentArr}`)
     })
 
     const project1 = document.createElement("button")
-    project1.textContent = "ProjectOne"
+    project1.textContent = "My First Project"
     project1.classList.add("focus")
     project1.addEventListener("click", () => {
         eraseDOM(container)
