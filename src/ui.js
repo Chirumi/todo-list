@@ -22,7 +22,7 @@ function ui() {
         newProject.textContent = "ProjectTwo"
         newProject.addEventListener("click", () => {
             eraseDOM(container)
-            project1.classList.remove("focus")
+            document.querySelector(".focus").classList.remove("focus")
             newProject.classList.add("focus")
             repopulateDOM(projectTwo)
         })
@@ -34,6 +34,8 @@ function ui() {
     project1.classList.add("focus")
     project1.addEventListener("click", () => {
         eraseDOM(container)
+        document.querySelector(".focus").classList.remove("focus")
+        project1.classList.add("focus")
         repopulateDOM(projectOne)
     })
     
