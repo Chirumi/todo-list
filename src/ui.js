@@ -6,7 +6,7 @@ import ToDoList from "./toDoList"
 import "./style.css"
 
 const projectOne = []
-const currentArr = [projectOne]
+let currentArr = [projectOne]
 const projectsArr = [projectOne]
 
 function ui() {
@@ -18,7 +18,7 @@ function ui() {
     addProject.textContent = "Add Project"
     addProject.classList.add("addProject")
     addProject.addEventListener("click", () => {
-        const project = []
+        let project = []
         projectsArr.push(project)
 
         const projectName = document.createElement("input")
@@ -31,32 +31,50 @@ function ui() {
             const removeProject = document.createElement("button")
             removeProject.textContent = "X"
             removeProject.addEventListener("click", () => {
-                sideBar.removeChild(newProjectDiv)
-                currentArr.length = 0 // REMOVES ALL TO-DO ITEMS 
+                eraseDOM(container)
                 //REMOVE THE ARRAY FROM projectsArr
                 project.push("TO REMOVE")
                 for (let i = 0; i < projectsArr.length; i++) {
                     for (let x = 0; x < projectsArr[i].length; x++) {
                         if (projectsArr[i][x] == "TO REMOVE") {
+                            // REMOVE project FROM projectsArr
                             const removeIndex = projectsArr.indexOf(projectsArr[i])
                             const filteredArr = projectsArr.splice(removeIndex, 1)
+
+                            // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
+                            // TO PROJECT AFTER, IF NONE THEN DEFAULT   
+                            if (!(i == 0)) {
+                                currentArr[0] = projectsArr[i-1]
+                                repopulateDOM(projectsArr[i-1])
+                            } 
+                            else if (i == 0) {
+                                currentArr[0] = projectsArr[i+1]
+                                repopulateDOM(projectsArr[i+1])
+                            }
+                                console.log(currentArr)
                             break
                         }
                     }
                 }
-                console.log(projectsArr)
+                sideBar.removeChild(newProjectDiv)
             })
             newProjectDiv.appendChild(newProject)
-            newProject.appendChild(removeProject)
+            newProjectDiv.appendChild(removeProject)
             sideBar.appendChild(newProjectDiv)
             
             newProject.addEventListener("click", () => {
                 eraseDOM(container)
-                currentArr.length = 0
+                currentArr = []
 
                 currentArr.push(project)
                 repopulateDOM(project)
             })
+            // REDIRECT TO NEW PROJECT
+            eraseDOM(container)
+            currentArr = []
+            currentArr.push(project)
+            repopulateDOM(project)
+
             sideBar.removeChild(projectName)
             sideBar.removeChild(submitProjectName)
         })
@@ -69,11 +87,10 @@ function ui() {
     project1.textContent = "My First Project"
     project1.addEventListener("click", () => {
         eraseDOM(container)
-        currentArr.length = 0
+        currentArr = []
         currentArr.push(projectOne)
         repopulateDOM(projectOne)
 
-        console.log(`currentArr = ${currentArr}`)
     })
     
     const addToDoItem = document.createElement("button")
