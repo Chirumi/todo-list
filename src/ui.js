@@ -8,8 +8,9 @@ import "./style.css"
 let currentArr = []
 const projectsArr = []
 
+const container = document.querySelector(".container")
+
 function ui() {
-    const container = document.querySelector(".container")
     const header = document.querySelector(".header")
     const sideBar = document.querySelector(".sideBar")
 
@@ -27,6 +28,7 @@ function ui() {
             const newProjectDiv = document.createElement("div")
             const newProject = document.createElement("button")
             newProject.textContent = projectName.value
+
             const removeProject = document.createElement("button")
             removeProject.textContent = "X"
             removeProject.addEventListener("click", () => {
@@ -35,23 +37,23 @@ function ui() {
                 removeProjectArr()
                 sideBar.removeChild(newProjectDiv)
             })
-            newProjectDiv.appendChild(newProject)
-            newProjectDiv.appendChild(removeProject)
-            sideBar.appendChild(newProjectDiv)
             
             newProject.addEventListener("click", () => {
                 eraseDOM(container)
                 currentArr = []
-
                 currentArr.push(project)
                 repopulateDOM(project)
             })
+
             // REDIRECT TO NEW PROJECT
             eraseDOM(container)
             currentArr = []
             currentArr.push(project)
             repopulateDOM(project)
 
+            newProjectDiv.appendChild(newProject)
+            newProjectDiv.appendChild(removeProject)
+            sideBar.appendChild(newProjectDiv)
             sideBar.removeChild(projectName)
             sideBar.removeChild(submitProjectName)
         })
@@ -104,13 +106,16 @@ function repopulateDOM(arr) {
         const itemDetails = document.createElement("div")
         itemDetails.addEventListener("click", () => {
             const dialog = document.createElement("dialog")
+
             dialog.addEventListener("click", () => {
-                document.querySelector(".container").removeChild(dialog)
+                container.removeChild(dialog)
             })
+
             const dialogFormContainer = document.createElement("div")
             dialogFormContainer.addEventListener("click", (e) => {
                 e.stopPropagation()
             })
+
             const dialogForm = document.createElement("form")
             const dialogTitle = document.createElement("input")
             dialogTitle.value = e.title
@@ -121,6 +126,7 @@ function repopulateDOM(arr) {
             dialogDueDate.value = e.dueDate
             const dialogPriority = document.createElement("select")
             dialogPriority.value = e.priority
+
             const dialogPriorityOne = document.createElement("option")
             dialogPriorityOne.value = "1"
             dialogPriorityOne.textContent = 1
@@ -130,6 +136,7 @@ function repopulateDOM(arr) {
             const dialogPriorityThree = document.createElement("option")
             dialogPriorityThree.value = "3"
             dialogPriorityThree.textContent = 3
+
             if (e.priority == "1") {
                 dialogPriorityOne.setAttribute("selected", "selected")
             }
@@ -139,6 +146,7 @@ function repopulateDOM(arr) {
             else {
                 dialogPriorityThree.setAttribute("selected", "selected")
             }
+
             const editBtn = document.createElement("button")
             editBtn.textContent = "Edit"
             editBtn.type = "button"
@@ -165,11 +173,13 @@ function repopulateDOM(arr) {
             dialogForm.appendChild(dialogDueDate)
             dialogForm.appendChild(dialogPriority)
             dialogForm.appendChild(editBtn)
+
             dialogFormContainer.appendChild(dialogForm)
             dialog.appendChild(dialogFormContainer)
-            document.querySelector(".container").prepend(dialog)
+            container.prepend(dialog)
             dialog.showModal()
         })
+
         const itemTitle = document.createElement("div")
         itemTitle.textContent = e.title
         const itemDesc = document.createElement("div")
@@ -183,7 +193,7 @@ function repopulateDOM(arr) {
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemDetails)
 
-        document.querySelector(".container").appendChild(itemContainer)
+        container.appendChild(itemContainer)
     });
 }
 
@@ -202,6 +212,7 @@ function toDoForm() {
     const priority = document.createElement("select")
     priority.name = "priority"
     priority.id = "priority"
+    
     const priorityOne = document.createElement("option")
     priorityOne.value = "1"
     priorityOne.textContent = 1
@@ -225,8 +236,7 @@ function toDoForm() {
         e.preventDefault()
 
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
-        const focusedArr = currentArr[0]
-        focusedArr.push(newTask)
+        currentArr[0].push(newTask)
 
         document.querySelector(".addToDoItem").style.display = "block"
         submitBtn.style.display = "none"
@@ -239,12 +249,14 @@ function toDoForm() {
             // Expand to-do item to edit/see
             const dialog = document.createElement("dialog")
             dialog.addEventListener("click", () => {
-                document.querySelector(".container").removeChild(dialog)
+                container.removeChild(dialog)
             })
+
             const dialogFormContainer = document.createElement("div")
             dialogFormContainer.addEventListener("click", (e) => {
                 e.stopPropagation()
             })
+
             const dialogForm = document.createElement("form")
             const dialogTitle = document.createElement("input")
             dialogTitle.value = itemTitle.textContent
@@ -255,6 +267,7 @@ function toDoForm() {
             dialogDueDate.value = newTask.dueDate
             const dialogPriority = document.createElement("select")
             dialogPriority.value = priority.textContent
+
             const dialogPriorityOne = document.createElement("option")
             dialogPriorityOne.value = "1"
             dialogPriorityOne.textContent = 1
@@ -264,6 +277,7 @@ function toDoForm() {
             const dialogPriorityThree = document.createElement("option")
             dialogPriorityThree.value = "3"
             dialogPriorityThree.textContent = 3
+
             if (newTask.priority == "1") {
                 dialogPriorityOne.setAttribute("selected", "selected")
             }
@@ -299,9 +313,10 @@ function toDoForm() {
             dialogForm.appendChild(dialogDueDate)
             dialogForm.appendChild(dialogPriority)
             dialogForm.appendChild(editBtn)
+
             dialogFormContainer.appendChild(dialogForm)
             dialog.appendChild(dialogFormContainer)
-            document.querySelector(".container").prepend(dialog)
+            container.prepend(dialog)
             dialog.showModal()
         })
         const itemTitle = document.createElement("div")
@@ -322,7 +337,7 @@ function toDoForm() {
         document.getElementById("dueDate").value = ""
         document.getElementById("priority").value = ""
 
-        document.querySelector(".container").appendChild(itemContainer)
+        container.appendChild(itemContainer)
         document.querySelector(".header").removeChild(form)
     })
 
