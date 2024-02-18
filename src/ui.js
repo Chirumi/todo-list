@@ -5,14 +5,29 @@
 import ToDoList from "./toDoList"
 import "./style.css"
 
-let currentArr = []
-const projectsArr = []
+let inbox = []
+let currentArr = [inbox]
+const projectsArr = [inbox]
 
 const container = document.querySelector(".container")
+const sideBar = document.querySelector(".sideBar")
+const addTaskBtn = document.querySelector(".addTaskBtn")
+
+    const inboxDiv = document.createElement("div")
+    const inboxBtn = document.createElement("button")
+    inboxBtn.textContent = "Inbox"
+
+    inboxBtn.addEventListener("click", () => {
+        eraseDOM(container)
+        currentArr = []
+        currentArr.push(inbox)
+        repopulateDOM(inbox)
+    })
+
+    inboxDiv.appendChild(inboxBtn)
+    sideBar.appendChild(inboxDiv)
 
 function ui() {
-    const header = document.querySelector(".header")
-    const sideBar = document.querySelector(".sideBar")
 
     const addProject = document.createElement("button")
     addProject.textContent = "Add Project"
@@ -67,12 +82,12 @@ function ui() {
     addToDoItem.classList.add("addToDoItem")
     addToDoItem.addEventListener("click", () => {
         const makeForm = toDoForm()
-        header.appendChild(makeForm)
+        container.appendChild(makeForm)
         addToDoItem.style.display = "none"
     })
 
     sideBar.appendChild(addProject)
-    header.appendChild(addToDoItem)
+    addTaskBtn.appendChild(addToDoItem)
 }
 
 function eraseDOM(parent) {
@@ -338,7 +353,7 @@ function toDoForm() {
         document.getElementById("priority").value = ""
 
         container.appendChild(itemContainer)
-        document.querySelector(".header").removeChild(form)
+        document.querySelector(".container").removeChild(form)
     })
 
     form.appendChild(title)
@@ -360,17 +375,8 @@ function removeProjectArr() {
                 
                 // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
                 // TO PROJECT AFTER, IF NONE THEN DEFAULT   
-                if (!(i == 0)) {
-                    currentArr[0] = projectsArr[i-1]
-                    repopulateDOM(projectsArr[i-1])
-                } 
-                else if (i == 0 && projectsArr.length > 0) {
-                    currentArr[0] = projectsArr[0]
-                    repopulateDOM(projectsArr[0])
-                } 
-                else {
-                    currentArr = []
-                }
+                currentArr[0] = projectsArr[i-1]
+                repopulateDOM(projectsArr[i-1])
                 break
             }
         }
