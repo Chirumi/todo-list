@@ -31,33 +31,8 @@ function ui() {
             removeProject.textContent = "X"
             removeProject.addEventListener("click", () => {
                 eraseDOM(container)
-                //REMOVE THE ARRAY FROM projectsArr
                 project.push("TO REMOVE")
-                for (let i = 0; i < projectsArr.length; i++) {
-                    for (let x = 0; x < projectsArr[i].length; x++) {
-                        if (projectsArr[i][x] == "TO REMOVE") {
-                            // REMOVE project FROM projectsArr
-                            const removeIndex = projectsArr.indexOf(projectsArr[i])
-                            const filteredArr = projectsArr.splice(removeIndex, 1)
-                            
-                            // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
-                            // TO PROJECT AFTER, IF NONE THEN DEFAULT   
-                            if (!(i == 0)) {
-                                currentArr[0] = projectsArr[i-1]
-                                repopulateDOM(projectsArr[i-1])
-                            } 
-                            else if (i == 0 && projectsArr.length > 0) {
-                                currentArr[0] = projectsArr[0]
-                                repopulateDOM(projectsArr[0])
-                            } 
-                            else {
-                                currentArr = []
-                            }
-                            console.log(currentArr)
-                            break
-                        }
-                    }
-                }
+                removeProjectArr()
                 sideBar.removeChild(newProjectDiv)
             })
             newProjectDiv.appendChild(newProject)
@@ -358,6 +333,33 @@ function toDoForm() {
     form.appendChild(submitBtn)
 
     return form
+}
+
+function removeProjectArr() {
+    for (let i = 0; i < projectsArr.length; i++) {
+        for (let x = 0; x < projectsArr[i].length; x++) {
+            if (projectsArr[i][x] == "TO REMOVE") {
+                // REMOVE project FROM projectsArr
+                const removeIndex = projectsArr.indexOf(projectsArr[i])
+                const filteredArr = projectsArr.splice(removeIndex, 1)
+                
+                // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
+                // TO PROJECT AFTER, IF NONE THEN DEFAULT   
+                if (!(i == 0)) {
+                    currentArr[0] = projectsArr[i-1]
+                    repopulateDOM(projectsArr[i-1])
+                } 
+                else if (i == 0 && projectsArr.length > 0) {
+                    currentArr[0] = projectsArr[0]
+                    repopulateDOM(projectsArr[0])
+                } 
+                else {
+                    currentArr = []
+                }
+                break
+            }
+        }
+    }
 }
 
 function checkBoxMaker() {
