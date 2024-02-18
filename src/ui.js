@@ -25,14 +25,33 @@ function ui() {
         const submitProjectName = document.createElement("button")
         submitProjectName.textContent = "Add New Project"
         submitProjectName.addEventListener("click", () => {
+            const newProjectDiv = document.createElement("div")
             const newProject = document.createElement("button")
             newProject.textContent = projectName.value
-            sideBar.appendChild(newProject)
+            const removeProject = document.createElement("button")
+            removeProject.textContent = "X"
+            removeProject.addEventListener("click", () => {
+                sideBar.removeChild(newProjectDiv)
+                currentArr.length = 0 // REMOVES ALL TO-DO ITEMS 
+                //REMOVE THE ARRAY FROM projectsArr
+                project.push("TO REMOVE")
+                for (let i = 0; i < projectsArr.length; i++) {
+                    for (let x = 0; x < projectsArr[i].length; x++) {
+                        if (projectsArr[i][x] == "TO REMOVE") {
+                            const removeIndex = projectsArr.indexOf(projectsArr[i])
+                            const filteredArr = projectsArr.splice(removeIndex, 1)
+                            break
+                        }
+                    }
+                }
+                console.log(projectsArr)
+            })
+            newProjectDiv.appendChild(newProject)
+            newProject.appendChild(removeProject)
+            sideBar.appendChild(newProjectDiv)
             
             newProject.addEventListener("click", () => {
                 eraseDOM(container)
-                document.querySelector(".focus").classList.remove("focus")
-                newProject.classList.add("focus")
                 currentArr.length = 0
 
                 currentArr.push(project)
@@ -44,16 +63,12 @@ function ui() {
 
         sideBar.appendChild(projectName)
         sideBar.appendChild(submitProjectName)
-        console.log(`currentArr = ${currentArr}`)
     })
 
     const project1 = document.createElement("button")
     project1.textContent = "My First Project"
-    project1.classList.add("focus")
     project1.addEventListener("click", () => {
         eraseDOM(container)
-        document.querySelector(".focus").classList.remove("focus")
-        project1.classList.add("focus")
         currentArr.length = 0
         currentArr.push(projectOne)
         repopulateDOM(projectOne)
