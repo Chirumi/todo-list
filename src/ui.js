@@ -5,9 +5,8 @@
 import ToDoList from "./toDoList"
 import "./style.css"
 
-const projectOne = []
-let currentArr = [projectOne]
-const projectsArr = [projectOne]
+let currentArr = []
+const projectsArr = []
 
 function ui() {
     const container = document.querySelector(".container")
@@ -40,18 +39,21 @@ function ui() {
                             // REMOVE project FROM projectsArr
                             const removeIndex = projectsArr.indexOf(projectsArr[i])
                             const filteredArr = projectsArr.splice(removeIndex, 1)
-
+                            
                             // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
                             // TO PROJECT AFTER, IF NONE THEN DEFAULT   
                             if (!(i == 0)) {
                                 currentArr[0] = projectsArr[i-1]
                                 repopulateDOM(projectsArr[i-1])
                             } 
-                            else if (i == 0) {
-                                currentArr[0] = projectsArr[i+1]
-                                repopulateDOM(projectsArr[i+1])
+                            else if (i == 0 && projectsArr.length > 0) {
+                                currentArr[0] = projectsArr[0]
+                                repopulateDOM(projectsArr[0])
+                            } 
+                            else {
+                                currentArr = []
                             }
-                                console.log(currentArr)
+                            console.log(currentArr)
                             break
                         }
                     }
@@ -82,16 +84,6 @@ function ui() {
         sideBar.appendChild(projectName)
         sideBar.appendChild(submitProjectName)
     })
-
-    const project1 = document.createElement("button")
-    project1.textContent = "My First Project"
-    project1.addEventListener("click", () => {
-        eraseDOM(container)
-        currentArr = []
-        currentArr.push(projectOne)
-        repopulateDOM(projectOne)
-
-    })
     
     const addToDoItem = document.createElement("button")
     addToDoItem.textContent = "Add task"
@@ -103,7 +95,6 @@ function ui() {
     })
 
     sideBar.appendChild(addProject)
-    sideBar.appendChild(project1)
     header.appendChild(addToDoItem)
 }
 
