@@ -11,8 +11,22 @@ const projectsArr = [inbox]
 
 const container = document.querySelector(".container")
 const sideBar = document.querySelector(".sideBar")
+const dueBy = document.querySelector(".dueBy")
 const addTaskBtn = document.querySelector(".addTaskBtn")
 
+function profile() {
+    const profDiv = document.createElement("div")
+    const profPic = document.createElement("img")
+    const profName = document.createElement("div")
+    profName.textContent = "Name"
+
+    profDiv.appendChild(profPic)
+    profDiv.appendChild(profName)
+    sideBar.prepend(profDiv)
+}
+profile()
+
+function initialInbox() {
     const inboxDiv = document.createElement("div")
     const inboxBtn = document.createElement("button")
     inboxBtn.textContent = "Inbox"
@@ -25,12 +39,44 @@ const addTaskBtn = document.querySelector(".addTaskBtn")
     })
 
     inboxDiv.appendChild(inboxBtn)
-    sideBar.appendChild(inboxDiv)
+    dueBy.appendChild(inboxDiv)
+}
+initialInbox()
+
+function todayFilter() {
+    const todayFilterDiv = document.createElement("div")
+    const todayFilterBtn = document.createElement("button")
+    todayFilterBtn.textContent = "Today"
+    
+    todayFilterBtn.addEventListener("click", () => {
+        // Code to filter and output items due by today
+    })
+
+    todayFilterDiv.appendChild(todayFilterBtn)
+    dueBy.appendChild(todayFilterDiv)
+}
+todayFilter()
+
+function weekFilter() {
+    const weekFilterDiv = document.createElement("div")
+    const weekFilterBtn = document.createElement("button")
+    weekFilterBtn.textContent = "This week"
+    
+    weekFilterBtn.addEventListener("click", () => {
+        // Code to filter and output items due by this week
+    })
+
+    weekFilterDiv.appendChild(weekFilterBtn)
+    dueBy.appendChild(weekFilterDiv)
+}
+weekFilter()
 
 function ui() {
+    const myProjects = document.createElement("div")
+    myProjects.textContent = "My Projects"
 
     const addProject = document.createElement("button")
-    addProject.textContent = "Add Project"
+    addProject.textContent = "+"
     addProject.classList.add("addProject")
     addProject.addEventListener("click", () => {
         let project = []
@@ -78,7 +124,7 @@ function ui() {
     })
     
     const addToDoItem = document.createElement("button")
-    addToDoItem.textContent = "Add task"
+    addToDoItem.textContent = "+"
     addToDoItem.classList.add("addToDoItem")
     addToDoItem.addEventListener("click", () => {
         const makeForm = toDoForm()
@@ -86,6 +132,7 @@ function ui() {
         addToDoItem.style.display = "none"
     })
 
+    sideBar.appendChild(myProjects)
     sideBar.appendChild(addProject)
     addTaskBtn.appendChild(addToDoItem)
 }
