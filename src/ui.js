@@ -344,6 +344,11 @@ function toDoForm() {
             })
 
             const dialogForm = document.createElement("form")
+
+            const itemHeader = document.createElement("h3")
+            itemHeader.textContent = "Edit Task"
+            itemHeader.classList.add("formHeader")
+            
             const dialogTitle = document.createElement("input")
             dialogTitle.value = itemTitle.textContent
             const dialogDesc = document.createElement("input")
@@ -393,7 +398,8 @@ function toDoForm() {
             dialogPriority.appendChild(dialogPriorityOne)
             dialogPriority.appendChild(dialogPriorityTwo)
             dialogPriority.appendChild(dialogPriorityThree)
-            
+        
+            dialogForm.appendChild(itemHeader)
             dialogForm.appendChild(dialogTitle)
             dialogForm.appendChild(dialogDesc)
             dialogForm.appendChild(dialogDueDate)
@@ -405,13 +411,14 @@ function toDoForm() {
             container.prepend(dialog)
             dialog.showModal()
         })
+
         const itemTitle = document.createElement("div")
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
         const itemPriority = document.createElement("div")
         itemPriority.textContent = newTask.priority
-        
+    
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
         itemDetails.appendChild(itemPriority)
@@ -427,6 +434,11 @@ function toDoForm() {
         document.querySelector(".container").removeChild(dialog)
     })
 
+    const addTaskHeader = document.createElement("h3")
+    addTaskHeader.textContent = "Add Task"
+    addTaskHeader.classList.add("formHeader")
+
+    form.appendChild(addTaskHeader)
     form.appendChild(title)
     form.appendChild(description)
     form.appendChild(dueDate)

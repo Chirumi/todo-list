@@ -95,6 +95,56 @@ main {
 
 dialog {
     position: absolute;
-    top: 50%;
+    top: 25%;
     left: 50%;
+    border-radius: 15px;
+}
+
+dialog > div {
+    font-size: 1.3rem;
+}
+
+dialog input {
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 3px 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 60px;
+    border-radius: 15px;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+form > div:nth-of-type(4) {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+form > button {
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin-top: 15px;
+}
+
+form select {
+    padding: 5px;
+    width: 20%;
+    border-radius: 15px;
+}
+
+.formHeader {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
