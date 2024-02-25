@@ -13,6 +13,7 @@ const container = document.querySelector(".container")
 const sideBar = document.querySelector(".sideBar")
 const dueBy = document.querySelector(".dueBy")
 const addTaskBtn = document.querySelector(".addTaskBtn")
+const projectHeader = document.querySelector(".projectHeader")
 
 function profile() {
     const profDiv = document.createElement("div")
@@ -36,7 +37,14 @@ function initialInbox() {
         currentArr = []
         currentArr.push(inbox)
         repopulateDOM(inbox)
+        projectHeader.textContent = "Inbox"
     })
+    // Open "Inbox" project on load
+    eraseDOM(container)
+    currentArr = []
+    currentArr.push(inbox)
+    repopulateDOM(inbox)
+    projectHeader.textContent = "Inbox"
 
     inboxDiv.appendChild(inboxBtn)
     dueBy.appendChild(inboxDiv)
@@ -104,6 +112,7 @@ function ui() {
                 currentArr = []
                 currentArr.push(project)
                 repopulateDOM(project)
+                projectHeader.textContent = projectName.value
             })
 
             // REDIRECT TO NEW PROJECT
@@ -111,6 +120,7 @@ function ui() {
             currentArr = []
             currentArr.push(project)
             repopulateDOM(project)
+            projectHeader.textContent = projectName.value
 
             newProjectDiv.appendChild(newProject)
             newProjectDiv.appendChild(removeProject)
@@ -129,7 +139,7 @@ function ui() {
     addToDoItem.addEventListener("click", () => {
         const makeForm = toDoForm()
         container.appendChild(makeForm)
-        addToDoItem.style.display = "none"
+        addTaskBtn.style.display = "none"
     })
 
     sideBar.appendChild(myProjects)
@@ -300,13 +310,15 @@ function toDoForm() {
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
         currentArr[0].push(newTask)
 
-        document.querySelector(".addToDoItem").style.display = "block"
+        document.querySelector(".addTaskBtn").style.display = "flex"
         submitBtn.style.display = "none"
 
         // Appends todo item to DOM
         const checkBox = checkBoxMaker()
         const itemContainer = document.createElement("div")
+        itemContainer.classList.add("itemContainer")
         const itemDetails = document.createElement("div")
+        itemDetails.classList.add("itemDetails")
         itemDetails.addEventListener("click", () => {
             // Expand to-do item to edit/see
             const dialog = document.createElement("dialog")

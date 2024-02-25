@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    border-style: none;
 }
 
 body {
@@ -19,7 +20,21 @@ body {
     align-items: center;
 }
 
+.projectHeader {
+    text-align: start;
+    padding: 10px 20px;
+    border-bottom: 1px solid black;
+}
+
+aside {
+    height: 100vh;
+    width: 20vw;
+    background-color: #464866;
+}
+
 .sideBar {
+    position: fixed;
+    height: 100vh;
     width: 20vw;
     background-color: #464866;
 }
@@ -27,9 +42,49 @@ body {
 main {
     height: 80%;
     width: 50%;
-    background-color: yellow;
+    border-radius: 15px;
+    background-color: #464866;
 }
 
 .container {
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemContainer {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+    margin: 10px 40px;
+}
+
+.itemDetails > div:first-of-type {
+    font-size: 1.3rem;
+}
+
+.itemDetails > div:nth-last-of-type(2) {
+    color: gray;
+}
+
+.addTaskBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.addToDoItem {
+    font-size: 1.5rem;
+    padding: 5px 13px;
+    border-radius: 510px;
+    transition: 0.3s;
+    color: white;
+    background-color: #464866;
+}
+
+.addToDoItem:hover {
+    color: #464866;
+    background-color: white;
+    transition: 0.3s;
 }
