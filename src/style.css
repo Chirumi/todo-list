@@ -59,6 +59,10 @@ main {
     margin: 10px 40px;
 }
 
+.itemDetails {
+    width: 100%;
+}
+
 .itemDetails > div:first-of-type {
     font-size: 1.3rem;
 }
@@ -87,4 +91,10 @@ main {
     color: #464866;
     background-color: white;
     transition: 0.3s;
+}
+
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }

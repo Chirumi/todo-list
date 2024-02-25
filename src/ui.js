@@ -139,6 +139,7 @@ function ui() {
     addToDoItem.addEventListener("click", () => {
         const makeForm = toDoForm()
         container.appendChild(makeForm)
+        document.querySelector(".addTaskDialog").showModal()
         addTaskBtn.style.display = "none"
     })
 
@@ -270,6 +271,17 @@ function repopulateDOM(arr) {
 }
 
 function toDoForm() {
+    const dialog = document.createElement("dialog")
+    dialog.classList.add("addTaskDialog")
+    dialog.addEventListener("click", () => {
+        container.removeChild(dialog)
+        addTaskBtn.style.display = "flex"
+    })
+
+    const formContainer = document.createElement("div")
+    formContainer.addEventListener("click", (e) => {
+        e.stopPropagation()
+    })
     const form = document.createElement("form")
 
     const title = inputMaker("Title", "input", "title")
@@ -412,7 +424,7 @@ function toDoForm() {
         document.getElementById("priority").value = ""
 
         container.appendChild(itemContainer)
-        document.querySelector(".container").removeChild(form)
+        document.querySelector(".container").removeChild(dialog)
     })
 
     form.appendChild(title)
@@ -420,8 +432,10 @@ function toDoForm() {
     form.appendChild(dueDate)
     form.appendChild(priorityContainer)
     form.appendChild(submitBtn)
+    formContainer.appendChild(form)
+    dialog.appendChild(formContainer)
 
-    return form
+    return dialog
 }
 
 function removeProjectArr() {
