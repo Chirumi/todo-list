@@ -1,34 +1,35 @@
-// ADD A "Add Project" button to add new projects
-// Clicking the project reveals all of it's array (todo) items and hides the others
-// Same logic as tab-switching in restaurant project
-
 import ToDoList from "./toDoList"
 import "./style.css"
+import accIcon from "./images/account.svg"
 
 let inbox = []
 let currentArr = [inbox]
 const projectsArr = [inbox]
 
 const container = document.querySelector(".container")
-const sideBar = document.querySelector(".sideBar")
+const sideBarItems = document.querySelector(".sideBarItems")
 const dueBy = document.querySelector(".dueBy")
 const addTaskBtn = document.querySelector(".addTaskBtn")
 const projectHeader = document.querySelector(".projectHeader")
 
 function profile() {
     const profDiv = document.createElement("div")
-    const profPic = document.createElement("img")
-    const profName = document.createElement("div")
-    profName.textContent = "Name"
+    profDiv.classList.add("profDiv")
+    const profPic = new Image()
+    profPic.src = accIcon
+    profPic.classList.add("profPic")
+    const profName = document.createElement("h1")
+    profName.textContent = "Michiru"
+    profName.classList.add("profName")
 
     profDiv.appendChild(profPic)
     profDiv.appendChild(profName)
-    sideBar.prepend(profDiv)
+    sideBarItems.prepend(profDiv)
 }
 profile()
 
 function initialInbox() {
-    const inboxDiv = document.createElement("div")
+    const inboxDiv = document.createElement("li")
     const inboxBtn = document.createElement("button")
     inboxBtn.textContent = "Inbox"
 
@@ -52,7 +53,7 @@ function initialInbox() {
 initialInbox()
 
 function todayFilter() {
-    const todayFilterDiv = document.createElement("div")
+    const todayFilterDiv = document.createElement("li")
     const todayFilterBtn = document.createElement("button")
     todayFilterBtn.textContent = "Today"
     
@@ -66,7 +67,7 @@ function todayFilter() {
 todayFilter()
 
 function weekFilter() {
-    const weekFilterDiv = document.createElement("div")
+    const weekFilterDiv = document.createElement("li")
     const weekFilterBtn = document.createElement("button")
     weekFilterBtn.textContent = "This week"
     
@@ -80,7 +81,10 @@ function weekFilter() {
 weekFilter()
 
 function ui() {
-    const myProjects = document.createElement("div")
+    const myProjectsDiv = document.createElement("div")
+    myProjectsDiv.classList.add("myProjectsDiv")
+
+    const myProjects = document.createElement("ul")
     myProjects.textContent = "My Projects"
 
     const addProject = document.createElement("button")
@@ -90,11 +94,25 @@ function ui() {
         let project = []
         projectsArr.push(project)
 
+        const addProjDialog = document.createElement("dialog")
+        addProjDialog.addEventListener("click", () => {
+            container.removeChild(addProjDialog)
+        })
+
+        const addProjContainer = document.createElement("div")
+        addProjContainer.addEventListener("click", (e) => {
+            e.stopPropagation()
+        })
+
+        const addProjForm = document.createElement("form")
+        const projectNameTitle = document.createElement("h3")
+        projectNameTitle.textContent = "Add project"
+        projectNameTitle.classList.add("formHeader")
         const projectName = document.createElement("input")
         const submitProjectName = document.createElement("button")
-        submitProjectName.textContent = "Add New Project"
+        submitProjectName.textContent = "Add"
         submitProjectName.addEventListener("click", () => {
-            const newProjectDiv = document.createElement("div")
+            const newProjectContainer = document.createElement("li")
             const newProject = document.createElement("button")
             newProject.textContent = projectName.value
 
@@ -104,7 +122,7 @@ function ui() {
                 eraseDOM(container)
                 project.push("TO REMOVE")
                 removeProjectArr()
-                sideBar.removeChild(newProjectDiv)
+                sideBarItems.removeChild(newProjectContainer)
             })
             
             newProject.addEventListener("click", () => {
@@ -122,15 +140,18 @@ function ui() {
             repopulateDOM(project)
             projectHeader.textContent = projectName.value
 
-            newProjectDiv.appendChild(newProject)
-            newProjectDiv.appendChild(removeProject)
-            sideBar.appendChild(newProjectDiv)
-            sideBar.removeChild(projectName)
-            sideBar.removeChild(submitProjectName)
+            newProjectContainer.appendChild(newProject)
+            newProjectContainer.appendChild(removeProject)
+            sideBarItems.appendChild(newProjectContainer)
         })
 
-        sideBar.appendChild(projectName)
-        sideBar.appendChild(submitProjectName)
+        addProjForm.appendChild(projectNameTitle)
+        addProjForm.appendChild(projectName)
+        addProjForm.appendChild(submitProjectName)
+        addProjContainer.appendChild(addProjForm)
+        addProjDialog.appendChild(addProjContainer)
+        container.appendChild(addProjDialog)
+        addProjDialog.showModal()
     })
     
     const addToDoItem = document.createElement("button")
@@ -143,8 +164,9 @@ function ui() {
         addTaskBtn.style.display = "none"
     })
 
-    sideBar.appendChild(myProjects)
-    sideBar.appendChild(addProject)
+    myProjectsDiv.appendChild(myProjects)
+    myProjectsDiv.appendChild(addProject)
+    sideBarItems.appendChild(myProjectsDiv)
     addTaskBtn.appendChild(addToDoItem)
 }
 
@@ -315,7 +337,7 @@ function toDoForm() {
 
     const submitBtn = document.createElement("button")
     submitBtn.classList.add("submitBtn")
-    submitBtn.textContent = "Add task"
+    submitBtn.textContent = "Add"
     submitBtn.addEventListener("click", (e) => {
         e.preventDefault()
 
@@ -346,7 +368,7 @@ function toDoForm() {
             const dialogForm = document.createElement("form")
 
             const itemHeader = document.createElement("h3")
-            itemHeader.textContent = "Edit Task"
+            itemHeader.textContent = "Edit task"
             itemHeader.classList.add("formHeader")
             
             const dialogTitle = document.createElement("input")
@@ -435,7 +457,7 @@ function toDoForm() {
     })
 
     const addTaskHeader = document.createElement("h3")
-    addTaskHeader.textContent = "Add Task"
+    addTaskHeader.textContent = "Add task"
     addTaskHeader.classList.add("formHeader")
 
     form.appendChild(addTaskHeader)

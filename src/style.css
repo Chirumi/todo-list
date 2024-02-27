@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     border-style: none;
+    list-style: none;
+    color: white;
 }
 
 body {
@@ -9,8 +11,6 @@ body {
     width: 100vw;
     display: flex;
     flex-direction: row;
-    background-color: #25274D;
-    color: white;
 }
 
 .mainContainer {
@@ -22,28 +22,74 @@ body {
 
 .projectHeader {
     text-align: start;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-bottom: 1px solid black;
 }
 
 aside {
     height: 100vh;
     width: 20vw;
-    background-color: #464866;
 }
 
 .sideBar {
     position: fixed;
     height: 100vh;
     width: 20vw;
-    background-color: #464866;
+}
+
+.dueBy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+aside, 
+.sideBar,
+.dueBy button,
+.addProject {
+    background-color: #2e2e2e;
+}
+
+.sideBarItems {
+    padding: 25px 35px;
+}
+
+.dueBy button,
+.myProjectsDiv > ul {
+    font-size: 1.6em;
+}
+
+.profDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 45px;
+}
+
+.profPic {
+    background-color: white;
+    border-radius: 50%;
+    height: auto;
+    width: 50px;
+}
+
+.myProjectsDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.addProject {
+    color: white;
+    font-size: 2em;
 }
 
 main {
     height: 80%;
     width: 50%;
     border-radius: 15px;
-    background-color: #464866;
+    background-color: #2e2e2e;
 }
 
 .container {
@@ -80,18 +126,24 @@ main {
 
 .addToDoItem {
     font-size: 1.5rem;
-    padding: 5px 13px;
-    border-radius: 510px;
-    transition: 0.3s;
-    color: white;
-    background-color: #464866;
 }
 
-.addToDoItem:hover {
+.addToDoItem,
+.addProject {
+    padding: 5px 13px;
+    border-radius: 50%;
+    transition: 0.3s;
+    color: white;
+    background-color: #2e2e2e;
+}
+
+.addToDoItem:hover,
+.addProject:hover {
     color: #464866;
     background-color: white;
     transition: 0.3s;
 }
+
 
 dialog {
     position: absolute;
