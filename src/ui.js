@@ -1,6 +1,9 @@
 import ToDoList from "./toDoList"
 import "./style.css"
 import accIcon from "./images/account.svg"
+import inboxIcon from "./images/inbox.svg"
+import todayIcon from "./images/calendar-today.svg"
+import weekIcon from "./images/calendar-week.svg"
 
 let inbox = []
 let currentArr = [inbox]
@@ -30,10 +33,13 @@ profile()
 
 function initialInbox() {
     const inboxDiv = document.createElement("li")
-    const inboxBtn = document.createElement("button")
-    inboxBtn.textContent = "Inbox"
+    const inboxName = document.createElement("div")
+    inboxName.textContent = "Inbox"
+    const inboxPic = new Image()
+    inboxPic.src = inboxIcon
 
-    inboxBtn.addEventListener("click", () => {
+    inboxDiv.addEventListener("click", () => {
+        console.log("CHICKEN")
         eraseDOM(container)
         currentArr = []
         currentArr.push(inbox)
@@ -47,35 +53,42 @@ function initialInbox() {
     repopulateDOM(inbox)
     projectHeader.textContent = "Inbox"
 
-    inboxDiv.appendChild(inboxBtn)
+    inboxDiv.appendChild(inboxPic)
+    inboxDiv.appendChild(inboxName)
     dueBy.appendChild(inboxDiv)
 }
 initialInbox()
 
 function todayFilter() {
     const todayFilterDiv = document.createElement("li")
-    const todayFilterBtn = document.createElement("button")
-    todayFilterBtn.textContent = "Today"
+    const todayFilterName = document.createElement("div")
+    todayFilterName.textContent = "Today"
+    const todayFilterPic = new Image()
+    todayFilterPic.src = todayIcon
     
-    todayFilterBtn.addEventListener("click", () => {
+    todayFilterDiv.addEventListener("click", () => {
         // Code to filter and output items due by today
     })
 
-    todayFilterDiv.appendChild(todayFilterBtn)
+    todayFilterDiv.appendChild(todayFilterPic)
+    todayFilterDiv.appendChild(todayFilterName)
     dueBy.appendChild(todayFilterDiv)
 }
 todayFilter()
 
 function weekFilter() {
     const weekFilterDiv = document.createElement("li")
-    const weekFilterBtn = document.createElement("button")
-    weekFilterBtn.textContent = "This week"
+    const weekFilterName = document.createElement("div")
+    weekFilterName.textContent = "This week"
+    const weekPic = new Image()
+    weekPic.src = weekIcon
     
-    weekFilterBtn.addEventListener("click", () => {
+    weekFilterDiv.addEventListener("click", () => {
         // Code to filter and output items due by this week
     })
 
-    weekFilterDiv.appendChild(weekFilterBtn)
+    weekFilterDiv.appendChild(weekPic)
+    weekFilterDiv.appendChild(weekFilterName)
     dueBy.appendChild(weekFilterDiv)
 }
 weekFilter()

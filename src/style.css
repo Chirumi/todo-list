@@ -1,9 +1,16 @@
+
+@font-face {
+    font-family: "MyFont";
+    src: url("./Ubuntu-Regular.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
     border-style: none;
     list-style: none;
     color: white;
+    font-family: "MyFont";
 }
 
 body {
@@ -40,7 +47,24 @@ aside {
 .dueBy {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+}
+
+.dueBy li {
+    display: flex;
+    padding: 10px 0px;
+    border-radius: 15px;
     gap: 20px;
+    color: black;
+}
+
+.dueBy li:hover {
+    background-color: rgb(77, 77, 77);
+}
+
+.dueBy img {
+    height: auto;
+    width: 30px;
 }
 
 aside, 
@@ -51,10 +75,17 @@ aside,
 }
 
 .sideBarItems {
-    padding: 25px 35px;
+    padding: 25px 15px;
 }
 
-.dueBy button,
+.dueBy > li,
+.profDiv,
+.myProjectsDiv {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dueBy div,
 .myProjectsDiv > ul {
     font-size: 1.6em;
 }
@@ -67,11 +98,17 @@ aside,
 }
 
 .profPic {
-    background-color: white;
-    border-radius: 50%;
     height: auto;
     width: 50px;
 }
+
+.profPic, 
+.dueBy img{
+    padding: 2px;
+    background-color: white;
+    border-radius: 50%;
+}
+
 
 .myProjectsDiv {
     display: flex;
@@ -132,15 +169,16 @@ main {
 .addProject {
     padding: 5px 13px;
     border-radius: 50%;
-    transition: 0.3s;
     color: white;
     background-color: #2e2e2e;
+    transition: 0.3s;
 }
 
 .addToDoItem:hover,
 .addProject:hover {
     color: #464866;
     background-color: white;
+    transform: rotate(180deg);
     transition: 0.3s;
 }
 
