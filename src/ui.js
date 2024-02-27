@@ -267,9 +267,7 @@ function repopulateDOM(arr) {
                 itemDesc.textContent = e.description
         
                 e.dueDate = dialogDueDate.value
-        
-                e.priority = dialogPriority.value
-                itemPriority.textContent = e.priority
+    
             })
 
             dialogPriority.appendChild(dialogPriorityOne)
@@ -292,12 +290,9 @@ function repopulateDOM(arr) {
         itemTitle.textContent = e.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = e.description
-        const itemPriority = document.createElement("div")
-        itemPriority.textContent = e.priority
         
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
-        itemDetails.appendChild(itemPriority)
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemDetails)
 
@@ -437,7 +432,16 @@ function toDoForm() {
                 newTask.dueDate = dialogDueDate.value
 
                 newTask.priority = dialogPriority.value
-                itemPriority.textContent = newTask.priority
+                
+                if (newTask.priority == 1) {
+                    itemContainer.style.borderRight = "3px solid orangered"
+                }
+                else if (newTask.priority == 2) {
+                    itemContainer.style.borderRight = "3px solid orange"
+                }
+                else {
+                    itemContainer.style.borderRight = "3px solid seagreen"
+                }
 
                 container.removeChild(dialog)
             })
@@ -463,12 +467,9 @@ function toDoForm() {
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
-        const itemPriority = document.createElement("div")
-        itemPriority.textContent = newTask.priority
     
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
-        itemDetails.appendChild(itemPriority)
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemDetails)
 
