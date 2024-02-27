@@ -260,14 +260,13 @@ function repopulateDOM(arr) {
             editBtn.type = "button"
             editBtn.addEventListener("click", () => {
                 e.title = dialogTitle.value
-                e.title = dialogTitle.value
                 itemTitle.textContent = e.title
         
                 e.description = dialogDesc.value
                 itemDesc.textContent = e.description
         
                 e.dueDate = dialogDueDate.value
-    
+                
             })
 
             dialogPriority.appendChild(dialogPriorityOne)
@@ -290,9 +289,12 @@ function repopulateDOM(arr) {
         itemTitle.textContent = e.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = e.description
+        const itemDueDate = document.createElement("div")
+        itemDueDate.textContent = e.dueDate
         
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
+        itemDetails.appendChild(itemDueDate)
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemDetails)
 
@@ -467,9 +469,12 @@ function toDoForm() {
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
         itemDesc.textContent = newTask.description
+        const itemDueDate = document.createElement("div")
+        itemDueDate.textContent = newTask.dueDate
     
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
+        itemDetails.appendChild(itemDueDate)
         itemContainer.appendChild(checkBox)
         itemContainer.appendChild(itemDetails)
 

@@ -142,15 +142,23 @@ main {
 }
 
 .itemDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     width: 100%;
 }
 
 .itemDetails > div:first-of-type {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 .itemDetails > div:nth-child(2) {
-    color: gray;
+    opacity: 0.6;
+}
+
+.itemDetails > div:nth-child(3) {
+    font-size: 0.8rem;
+    opacity: 0.6;
 }
 
 .addTaskBtn {
