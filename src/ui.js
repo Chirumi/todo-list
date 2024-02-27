@@ -357,6 +357,7 @@ function toDoForm() {
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
         currentArr[0].push(newTask)
 
+
         document.querySelector(".addTaskBtn").style.display = "flex"
         submitBtn.style.display = "none"
 
@@ -364,6 +365,15 @@ function toDoForm() {
         const checkBox = checkBoxMaker()
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
+        if (document.getElementById("priority").value == 1) {
+            itemContainer.style.borderRight = "3px solid orangered"
+        }
+        else if (document.getElementById("priority").value == 2) {
+            itemContainer.style.borderRight = "3px solid orange"
+        }
+        else {
+            itemContainer.style.borderRight = "3px solid seagreen"
+        }
         const itemDetails = document.createElement("div")
         itemDetails.classList.add("itemDetails")
         itemDetails.addEventListener("click", () => {
@@ -428,6 +438,8 @@ function toDoForm() {
 
                 newTask.priority = dialogPriority.value
                 itemPriority.textContent = newTask.priority
+
+                container.removeChild(dialog)
             })
 
             dialogPriority.appendChild(dialogPriorityOne)

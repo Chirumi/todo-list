@@ -27,6 +27,10 @@ body {
     align-items: center;
 }
 
+main {
+    box-shadow: 6px 6px 6px  rgb(175, 175, 175);
+}
+
 .projectHeader {
     text-align: start;
     padding: 15px 20px;
@@ -163,7 +167,7 @@ main {
 .addToDoItem,
 .addProject {
     font-size: 2em;
-    padding: 5px 13px;
+    padding: 6px 15px;
     border-radius: 50%;
     color: white;
     background-color: #2e2e2e;
@@ -177,7 +181,6 @@ main {
     transform: rotate(180deg);
     transition: 0.3s;
 }
-
 
 dialog {
     position: absolute;
