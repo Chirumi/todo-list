@@ -11,7 +11,6 @@ let today = []
 let currentArr = [inbox]
 const projectsArr = [inbox, today]
 
-const main = document.querySelector("main")
 const container = document.querySelector(".container")
 const sideBarItems = document.querySelector(".sideBarItems")
 const dueBy = document.querySelector(".dueBy")
@@ -49,6 +48,8 @@ function initialInbox() {
         repopulateDOM(inbox)
         document.querySelector(".addTaskBtn").style.display = "flex"
         projectHeader.textContent = "Inbox"
+
+        console.log(inbox)
     })
     // Open "Inbox" project on load
     eraseDOM(container)
@@ -255,6 +256,11 @@ function repopulateDOM(arr) {
             }
         })
 
+        if (!(arr == today)) {
+            delete e.filter // Remove filter property used to delete todo items from projects when
+        // they are deleted under "Today" filter tab
+        }
+
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
         const itemDetails = document.createElement("div")
@@ -340,10 +346,6 @@ function repopulateDOM(arr) {
         const itemDueDate = document.createElement("div")
         itemDueDate.classList.add("previewDueDate")
         itemDueDate.textContent = e.dueDate
-
-        delete e.filter // Remove filter property used to delete todo items from projects when
-        // they are deleted under "Today" filter tab
-        console.log(arr)
 
         if (e.priority == 1) {
             itemContainer.classList.add("priorityOne")

@@ -21,14 +21,10 @@ body {
 }
 
 .mainContainer {
-    width: 80vw;
+    width: 85vw;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-main {
-    box-shadow: 6px 6px 6px  rgb(175, 175, 175);
 }
 
 .projectHeader {
@@ -39,13 +35,13 @@ main {
 
 aside {
     height: 100vh;
-    width: 20vw;
+    width: 15vw;
 }
 
 .sideBar {
     position: fixed;
     height: 100vh;
-    width: 20vw;
+    width: 15vw;
 }
 
 .dueBy {
@@ -123,9 +119,10 @@ aside,
 
 main {
     height: 80%;
-    width: 50%;
+    width: 40%;
     border-radius: 15px;
     background-color: #2e2e2e;
+    box-shadow: 6px 6px 6px  rgb(175, 175, 175);
 }
 
 .container {
