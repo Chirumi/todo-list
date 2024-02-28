@@ -133,6 +133,18 @@ main {
     flex-direction: column;
 }
 
+.priorityOne {
+    border-right: 3px solid orangered;
+}
+
+.priorityTwo {
+    border-right: 3px solid orange;
+}
+
+.priorityThree {
+    border-right: 3px solid seagreen
+}
+
 .itemContainer {
     display: flex;
     gap: 20px;
@@ -148,15 +160,15 @@ main {
     width: 100%;
 }
 
-.itemDetails > div:first-of-type {
+.previewTitle {
     font-size: 1.4rem;
 }
 
-.itemDetails > div:nth-child(2) {
+.previewDesc {
     opacity: 0.6;
 }
 
-.itemDetails > div:nth-child(3) {
+.previewDueDate {
     font-size: 0.8rem;
     opacity: 0.6;
 }

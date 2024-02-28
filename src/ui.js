@@ -4,10 +4,12 @@ import accIcon from "./images/account.svg"
 import inboxIcon from "./images/inbox.svg"
 import todayIcon from "./images/calendar-today.svg"
 import weekIcon from "./images/calendar-week.svg"
+import { format, compareAsc } from "date-fns"
 
 let inbox = []
+let today = []
 let currentArr = [inbox]
-const projectsArr = [inbox]
+const projectsArr = [inbox, today]
 
 const container = document.querySelector(".container")
 const sideBarItems = document.querySelector(".sideBarItems")
@@ -67,7 +69,20 @@ function todayFilter() {
     todayFilterPic.src = todayIcon
     
     todayFilterDiv.addEventListener("click", () => {
-        // Code to filter and output items due by today
+        // Update today array items to delete items not due today
+        let currentDate = new Date().toISOString().split("T")[0]
+
+        for (let i = 0; i < today.length - 1; i++) {
+            if (!(today[i].dueDate == currentDate)) {
+                today.splice(i, 1)
+            }
+        }
+
+        eraseDOM(container)
+        currentArr = []
+        currentArr.push(today)
+        repopulateDOM(today)
+        projectHeader.textContent = "Today"
     })
 
     todayFilterDiv.appendChild(todayFilterPic)
@@ -211,7 +226,9 @@ function repopulateDOM(arr) {
     arr.forEach(e => {
         const checkBox = checkBoxMaker()
         const itemContainer = document.createElement("div")
+        itemContainer.classList.add("itemContainer")
         const itemDetails = document.createElement("div")
+        itemDetails.classList.add("itemDetails")
         itemDetails.addEventListener("click", () => {
             const dialog = document.createElement("dialog")
 
@@ -266,7 +283,6 @@ function repopulateDOM(arr) {
                 itemDesc.textContent = e.description
         
                 e.dueDate = dialogDueDate.value
-                
             })
 
             dialogPriority.appendChild(dialogPriorityOne)
@@ -286,11 +302,24 @@ function repopulateDOM(arr) {
         })
 
         const itemTitle = document.createElement("div")
+        itemTitle.classList.add("previewTitle")
         itemTitle.textContent = e.title
         const itemDesc = document.createElement("div")
+        itemDesc.classList.add("previewDesc")
         itemDesc.textContent = e.description
         const itemDueDate = document.createElement("div")
+        itemDueDate.classList.add("previewDueDate")
         itemDueDate.textContent = e.dueDate
+
+        if (e.priority == 1) {
+            itemContainer.classList.add("priorityOne")
+        }
+        else if (e.priority == 2) {
+            itemContainer.classList.add("priorityTwo")
+        }
+        else {
+            itemContainer.classList.add("priorityThree")
+        }
         
         itemDetails.appendChild(itemTitle)
         itemDetails.appendChild(itemDesc)
@@ -352,8 +381,12 @@ function toDoForm() {
         e.preventDefault()
 
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
+        
         currentArr[0].push(newTask)
-
+        let currentDate = new Date().toISOString().split("T")[0]
+        if (document.getElementById("dueDate").value == currentDate) {
+            today.push(newTask)
+        }
 
         document.querySelector(".addTaskBtn").style.display = "flex"
         submitBtn.style.display = "none"
@@ -363,13 +396,13 @@ function toDoForm() {
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
         if (document.getElementById("priority").value == 1) {
-            itemContainer.style.borderRight = "3px solid orangered"
+            itemContainer.classList.add("priorityOne")
         }
         else if (document.getElementById("priority").value == 2) {
-            itemContainer.style.borderRight = "3px solid orange"
+            itemContainer.classList.add("priorityTwo")
         }
         else {
-            itemContainer.style.borderRight = "3px solid seagreen"
+            itemContainer.classList.add("priorityThree")
         }
         const itemDetails = document.createElement("div")
         itemDetails.classList.add("itemDetails")
@@ -466,10 +499,13 @@ function toDoForm() {
         })
 
         const itemTitle = document.createElement("div")
+        itemTitle.classList.add("previewTitle")
         itemTitle.textContent = newTask.title
         const itemDesc = document.createElement("div")
+        itemDesc.classList.add("previewDesc")
         itemDesc.textContent = newTask.description
         const itemDueDate = document.createElement("div")
+        itemDueDate.classList.add("previewDueDate")
         itemDueDate.textContent = newTask.dueDate
     
         itemDetails.appendChild(itemTitle)
