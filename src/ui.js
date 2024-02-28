@@ -11,6 +11,7 @@ let today = []
 let currentArr = [inbox]
 const projectsArr = [inbox, today]
 
+const main = document.querySelector("main")
 const container = document.querySelector(".container")
 const sideBarItems = document.querySelector(".sideBarItems")
 const dueBy = document.querySelector(".dueBy")
@@ -41,18 +42,21 @@ function initialInbox() {
     inboxPic.src = inboxIcon
 
     inboxDiv.addEventListener("click", () => {
-        console.log("CHICKEN")
         eraseDOM(container)
         currentArr = []
+        today = []
         currentArr.push(inbox)
         repopulateDOM(inbox)
+        document.querySelector(".addTaskBtn").style.display = "flex"
         projectHeader.textContent = "Inbox"
     })
     // Open "Inbox" project on load
     eraseDOM(container)
     currentArr = []
+    today = []
     currentArr.push(inbox)
     repopulateDOM(inbox)
+    document.querySelector(".addTaskBtn").style.display = "flex"
     projectHeader.textContent = "Inbox"
 
     inboxDiv.appendChild(inboxPic)
@@ -69,12 +73,15 @@ function todayFilter() {
     todayFilterPic.src = todayIcon
     
     todayFilterDiv.addEventListener("click", () => {
-        // Update today array items to delete items not due today
+        today = []
+        // Push toDo objects that have dueDate == currentDate into today array
         let currentDate = new Date().toISOString().split("T")[0]
 
-        for (let i = 0; i < today.length - 1; i++) {
-            if (!(today[i].dueDate == currentDate)) {
-                today.splice(i, 1)
+        for (let x = 0; x < projectsArr.length; x++) {
+            for (let y = 0; y < projectsArr[x].length; y++) {
+                if (projectsArr[x][y].dueDate == currentDate) {
+                    today.push(projectsArr[x][y])
+                }
             }
         }
 
@@ -82,6 +89,7 @@ function todayFilter() {
         currentArr = []
         currentArr.push(today)
         repopulateDOM(today)
+        document.querySelector(".addTaskBtn").style.display = "none"
         projectHeader.textContent = "Today"
     })
 
@@ -156,16 +164,20 @@ function ui() {
             newProject.addEventListener("click", () => {
                 eraseDOM(container)
                 currentArr = []
+                today = []
                 currentArr.push(project)
                 repopulateDOM(project)
+                document.querySelector(".addTaskBtn").style.display = "flex"
                 projectHeader.textContent = projectName.value
             })
 
             // REDIRECT TO NEW PROJECT
             eraseDOM(container)
             currentArr = []
+            today = []
             currentArr.push(project)
             repopulateDOM(project)
+            document.querySelector(".addTaskBtn").style.display = "flex"
             projectHeader.textContent = projectName.value
 
             newProjectContainer.appendChild(newProject)
@@ -225,6 +237,11 @@ function inputMaker(input, type, idName) {
 function repopulateDOM(arr) {
     arr.forEach(e => {
         const checkBox = checkBoxMaker()
+        checkBox.addEventListener("click", () => {
+            const indexToRemove = arr.indexOf(e)
+            arr.splice(indexToRemove, 1)
+        })
+
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
         const itemDetails = document.createElement("div")
@@ -381,18 +398,17 @@ function toDoForm() {
         e.preventDefault()
 
         const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
-        
         currentArr[0].push(newTask)
-        let currentDate = new Date().toISOString().split("T")[0]
-        if (document.getElementById("dueDate").value == currentDate) {
-            today.push(newTask)
-        }
 
         document.querySelector(".addTaskBtn").style.display = "flex"
         submitBtn.style.display = "none"
 
         // Appends todo item to DOM
         const checkBox = checkBoxMaker()
+        checkBox.addEventListener("click", () => {
+            const indexToRemove = arr.indexOf(e)
+            arr.splice(indexToRemove, 1)
+        })
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
         if (document.getElementById("priority").value == 1) {
