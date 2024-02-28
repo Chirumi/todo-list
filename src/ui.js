@@ -81,6 +81,7 @@ function todayFilter() {
             for (let y = 0; y < projectsArr[x].length; y++) {
                 if (projectsArr[x][y].dueDate == currentDate) {
                     today.push(projectsArr[x][y])
+                    projectsArr[x][y].filter = "today"
                 }
             }
         }
@@ -240,6 +241,18 @@ function repopulateDOM(arr) {
         checkBox.addEventListener("click", () => {
             const indexToRemove = arr.indexOf(e)
             arr.splice(indexToRemove, 1)
+
+            // Remove todo item from source project when it is removed under "Today" filter
+            if (arr == today) {
+                for (let x = 0; x < projectsArr.length; x++) {
+                    for (let y = 0; y < projectsArr[x].length; y++) {
+                        if (projectsArr[x][y].filter == "today") {
+                            projectsArr[x].splice(y, 1)
+                            console.log(inbox)
+                        }
+                    }
+                }
+            }
         })
 
         const itemContainer = document.createElement("div")
@@ -327,6 +340,10 @@ function repopulateDOM(arr) {
         const itemDueDate = document.createElement("div")
         itemDueDate.classList.add("previewDueDate")
         itemDueDate.textContent = e.dueDate
+
+        delete e.filter // Remove filter property used to delete todo items from projects when
+        // they are deleted under "Today" filter tab
+        console.log(arr)
 
         if (e.priority == 1) {
             itemContainer.classList.add("priorityOne")
