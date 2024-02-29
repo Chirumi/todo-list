@@ -8,8 +8,9 @@ import { format, compareAsc } from "date-fns"
 
 let inbox = []
 let today = []
+let week = []
 let currentArr = [inbox]
-const projectsArr = [inbox, today]
+const projectsArr = [inbox, today, week]
 
 const container = document.querySelector(".container")
 const sideBarItems = document.querySelector(".sideBarItems")
@@ -83,6 +84,7 @@ function todayFilter() {
                 if (projectsArr[x][y].dueDate == currentDate) {
                     today.push(projectsArr[x][y])
                     projectsArr[x][y].filter = "today"
+                    console.log(today)
                 }
             }
         }
@@ -109,7 +111,27 @@ function weekFilter() {
     weekPic.src = weekIcon
     
     weekFilterDiv.addEventListener("click", () => {
-        // Code to filter and output items due by this week
+        week = []
+
+        let currentDate = new Date()
+        let weekAfterCurrentDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
+
+        for (let x = 0; x < projectsArr.length; x++) {
+            for (let y = 0; y < projectsArr[x].length; y++) {
+                if (projectsArr[x][y].dueDate >= currentDate.toISOString().split("T")[0] && projectsArr[x][y].dueDate <= weekAfterCurrentDate) {
+                    week.push(projectsArr[x][y])
+                    projectsArr[x][y].filter = "week"
+                    console.log(week)
+                }
+            }
+        }
+
+        eraseDOM(container)
+        currentArr = []
+        currentArr.push(week)
+        repopulateDOM(week)
+        document.querySelector(".addTaskBtn").style.display = "none"
+        projectHeader.textContent = "This week"
     })
 
     weekFilterDiv.appendChild(weekPic)
@@ -249,14 +271,22 @@ function repopulateDOM(arr) {
                     for (let y = 0; y < projectsArr[x].length; y++) {
                         if (projectsArr[x][y].filter == "today") {
                             projectsArr[x].splice(y, 1)
-                            console.log(inbox)
+                        }
+                    }
+                }
+            }
+            if (arr == week) {
+                for (let x = 0; x < projectsArr.length; x++) {
+                    for (let y = 0; y < projectsArr[x].length; y++) {
+                        if (projectsArr[x][y].filter == "week") {
+                            projectsArr[x].splice(y, 1)
                         }
                     }
                 }
             }
         })
 
-        if (!(arr == today)) {
+        if (!(arr == today || arr == week)) {
             delete e.filter // Remove filter property used to delete todo items from projects when
         // they are deleted under "Today" filter tab
         }
