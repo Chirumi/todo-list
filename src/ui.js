@@ -319,19 +319,19 @@ function repopulateDOM(arr) {
             dialogPriority.value = e.priority
 
             const dialogPriorityOne = document.createElement("option")
-            dialogPriorityOne.value = "1"
-            dialogPriorityOne.textContent = 1
+            dialogPriorityOne.value = "High"
+            dialogPriorityOne.textContent = "High"
             const dialogPriorityTwo = document.createElement("option")
-            dialogPriorityTwo.value = "2"
-            dialogPriorityTwo.textContent = 2
+            dialogPriorityTwo.value = "Medium"
+            dialogPriorityTwo.textContent = "Medium"
             const dialogPriorityThree = document.createElement("option")
-            dialogPriorityThree.value = "3"
-            dialogPriorityThree.textContent = 3
+            dialogPriorityThree.value = "Low"
+            dialogPriorityThree.textContent = "Low"
 
-            if (e.priority == "1") {
+            if (e.priority == "High") {
                 dialogPriorityOne.setAttribute("selected", "selected")
             }
-            else if (e.priority == "2") {
+            else if (e.priority == "Medium") {
                 dialogPriorityTwo.setAttribute("selected", "selected")
             }
             else {
@@ -377,10 +377,10 @@ function repopulateDOM(arr) {
         itemDueDate.classList.add("previewDueDate")
         itemDueDate.textContent = e.dueDate
 
-        if (e.priority == 1) {
+        if (e.priority == "High") {
             itemContainer.classList.add("priorityOne")
         }
-        else if (e.priority == 2) {
+        else if (e.priority == "Medium") {
             itemContainer.classList.add("priorityTwo")
         }
         else {
@@ -425,14 +425,14 @@ function toDoForm() {
     priority.id = "priority"
     
     const priorityOne = document.createElement("option")
-    priorityOne.value = "1"
-    priorityOne.textContent = 1
+    priorityOne.value = "High"
+    priorityOne.textContent = "High"
     const priorityTwo = document.createElement("option")
-    priorityTwo.value = "2"
-    priorityTwo.textContent = 2
+    priorityTwo.value = "Medium"
+    priorityTwo.textContent = "Medium"
     const priorityThree = document.createElement("option")
-    priorityThree.value = "3"
-    priorityThree.textContent = 3
+    priorityThree.value = "Low"
+    priorityThree.textContent = "Low"
 
     priority.appendChild(priorityOne)
     priority.appendChild(priorityTwo)
@@ -460,10 +460,10 @@ function toDoForm() {
         })
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("itemContainer")
-        if (document.getElementById("priority").value == 1) {
+        if (document.getElementById("priority").value == "High") {
             itemContainer.classList.add("priorityOne")
         }
-        else if (document.getElementById("priority").value == 2) {
+        else if (document.getElementById("priority").value == "Medium") {
             itemContainer.classList.add("priorityTwo")
         }
         else {
@@ -500,19 +500,19 @@ function toDoForm() {
             dialogPriority.value = priority.textContent
 
             const dialogPriorityOne = document.createElement("option")
-            dialogPriorityOne.value = "1"
-            dialogPriorityOne.textContent = 1
+            dialogPriorityOne.value = "High"
+            dialogPriorityOne.textContent = "High"
             const dialogPriorityTwo = document.createElement("option")
-            dialogPriorityTwo.value = "2"
-            dialogPriorityTwo.textContent = 2
+            dialogPriorityTwo.value = "Medium"
+            dialogPriorityTwo.textContent = "Medium"
             const dialogPriorityThree = document.createElement("option")
-            dialogPriorityThree.value = "3"
-            dialogPriorityThree.textContent = 3
+            dialogPriorityThree.value = "Low"
+            dialogPriorityThree.textContent = "Low"
 
-            if (newTask.priority == "1") {
+            if (newTask.priority == "High") {
                 dialogPriorityOne.setAttribute("selected", "selected")
             }
-            else if (newTask.priority == "2") {
+            else if (newTask.priority == "Medium") {
                 dialogPriorityTwo.setAttribute("selected", "selected")
             }
             else {
@@ -533,10 +533,10 @@ function toDoForm() {
 
                 newTask.priority = dialogPriority.value
                 
-                if (newTask.priority == 1) {
+                if (newTask.priority == "High") {
                     itemContainer.style.borderRight = "3px solid orangered"
                 }
-                else if (newTask.priority == 2) {
+                else if (newTask.priority == "Medium") {
                     itemContainer.style.borderRight = "3px solid orange"
                 }
                 else {
