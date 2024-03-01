@@ -144,7 +144,7 @@ function ui() {
     const myProjectsDiv = document.createElement("div")
     myProjectsDiv.classList.add("myProjectsDiv")
 
-    const myProjects = document.createElement("ul")
+    const myProjects = document.createElement("div")
     myProjects.textContent = "My Projects"
 
     const addProject = document.createElement("button")
@@ -172,17 +172,20 @@ function ui() {
         const submitProjectName = document.createElement("button")
         submitProjectName.textContent = "Add"
         submitProjectName.addEventListener("click", () => {
-            const newProjectContainer = document.createElement("li")
+            const newProjectContainer = document.createElement("div")
+            newProjectContainer.classList.add("newProject")
             const newProject = document.createElement("button")
             newProject.textContent = projectName.value
+            newProject.classList.add("newProjectName")
 
             const removeProject = document.createElement("button")
             removeProject.textContent = "X"
+            removeProject.classList.add("newProjectRemove")
             removeProject.addEventListener("click", () => {
                 eraseDOM(container)
                 project.push("TO REMOVE")
                 removeProjectArr()
-                sideBarItems.removeChild(newProjectContainer)
+                myProjectsDiv.removeChild(newProjectContainer)
             })
             
             newProject.addEventListener("click", () => {
@@ -206,7 +209,7 @@ function ui() {
 
             newProjectContainer.appendChild(newProject)
             newProjectContainer.appendChild(removeProject)
-            sideBarItems.appendChild(newProjectContainer)
+            myProjectsDiv.appendChild(newProjectContainer)
         })
 
         addProjForm.appendChild(projectNameTitle)
@@ -228,8 +231,11 @@ function ui() {
         addTaskBtn.style.display = "none"
     })
 
-    myProjectsDiv.appendChild(myProjects)
-    myProjectsDiv.appendChild(addProject)
+    const div = document.createElement("div")
+    div.appendChild(myProjects)
+    div.appendChild(addProject)
+    
+    myProjectsDiv.appendChild(div)
     sideBarItems.appendChild(myProjectsDiv)
     addTaskBtn.appendChild(addToDoItem)
 }

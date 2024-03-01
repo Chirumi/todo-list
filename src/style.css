@@ -21,7 +21,7 @@ body {
 }
 
 .mainContainer {
-    width: 85vw;
+    width: 80vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,13 +35,13 @@ body {
 
 aside {
     height: 100vh;
-    width: 15vw;
+    width: 20vw;
 }
 
 .sideBar {
     position: fixed;
     height: 100vh;
-    width: 15vw;
+    width: 20vw;
 }
 
 .dueBy {
@@ -86,8 +86,16 @@ aside,
 }
 
 .dueBy div,
-.myProjectsDiv > ul {
+.myProjectsDiv {
     font-size: 1.6em;
+}
+
+.myProjectsDiv > div:first-of-type {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 .profDiv {
@@ -109,12 +117,29 @@ aside,
     border-radius: 50%;
 }
 
-
 .myProjectsDiv {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     margin-top: 90px;
+}
+
+.newProject {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 30px;
+    border-radius: 15px;
+}
+
+.newProject button {
+    font-size: 0.8em;
+    background-color: #2e2e2e;
+    color: white;
+}
+
+.newProjectName:hover,
+.newProjectRemove:hover {
+    color: #cacaca;
 }
 
 main {
