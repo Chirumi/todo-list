@@ -49,8 +49,6 @@ function initialInbox() {
         repopulateDOM(inbox)
         document.querySelector(".addTaskBtn").style.display = "flex"
         projectHeader.textContent = "Inbox"
-
-        console.log(inbox)
     })
     // Open "Inbox" project on load
     eraseDOM(container)
@@ -84,7 +82,6 @@ function todayFilter() {
                 if (projectsArr[x][y].dueDate == currentDate) {
                     today.push(projectsArr[x][y])
                     projectsArr[x][y].filter = "today"
-                    console.log(today)
                 }
             }
         }
@@ -121,7 +118,6 @@ function weekFilter() {
                 if (projectsArr[x][y].dueDate >= currentDate.toISOString().split("T")[0] && projectsArr[x][y].dueDate <= weekAfterCurrentDate) {
                     week.push(projectsArr[x][y])
                     projectsArr[x][y].filter = "week"
-                    console.log(week)
                 }
             }
         }
@@ -618,10 +614,14 @@ function removeProjectArr() {
                 const removeIndex = projectsArr.indexOf(projectsArr[i])
                 const filteredArr = projectsArr.splice(removeIndex, 1)
                 
-                // REDIRECT TO PREVIOUS PROJECT UNLESS projectsArr[0] THEN REDIRECT
-                // TO PROJECT AFTER, IF NONE THEN DEFAULT   
-                currentArr[0] = projectsArr[i-1]
-                repopulateDOM(projectsArr[i-1])
+                eraseDOM(container)
+                currentArr = []
+                today = []
+                currentArr.push(inbox)
+                repopulateDOM(inbox)
+                document.querySelector(".addTaskBtn").style.display = "flex"
+                projectHeader.textContent = "Inbox"
+
                 break
             }
         }
