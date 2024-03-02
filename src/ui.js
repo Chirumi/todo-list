@@ -210,6 +210,9 @@ function ui() {
                 newProjectContainer.appendChild(removeProject)
                 myProjectsDiv.appendChild(newProjectContainer)
             }
+            else {
+                alert("Please type the new project's name!")
+            }
                 
         })
 
@@ -560,7 +563,9 @@ function toDoForm() {
 
                         container.removeChild(dialog)
                     }
-                    
+                    else {
+                        alert("Please fill in the task's title!")
+                    }
                 })
 
                 dialogPriority.appendChild(dialogPriorityOne)
@@ -603,6 +608,9 @@ function toDoForm() {
 
             container.appendChild(itemContainer)
             document.querySelector(".container").removeChild(dialog)
+        }
+        else {
+            alert("Please fill in the title and due date cannot be earlier than today!")
         }
     })
 
