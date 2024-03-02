@@ -167,7 +167,9 @@ function ui() {
         const projectName = document.createElement("input")
         const submitProjectName = document.createElement("button")
         submitProjectName.textContent = "Add"
-        submitProjectName.addEventListener("click", () => {
+        submitProjectName.addEventListener("click", (e) => {
+            e.preventDefault()
+
             const newProjectContainer = document.createElement("div")
             newProjectContainer.classList.add("newProject")
             const newProject = document.createElement("button")
@@ -175,7 +177,7 @@ function ui() {
             newProject.classList.add("newProjectName")
 
             const removeProject = document.createElement("button")
-            removeProject.textContent = "X"
+            removeProject.textContent = "x"
             removeProject.classList.add("newProjectRemove")
             removeProject.addEventListener("click", () => {
                 eraseDOM(container)
@@ -225,6 +227,9 @@ function ui() {
         container.appendChild(makeForm)
         document.querySelector(".addTaskDialog").showModal()
         addTaskBtn.style.display = "none"
+
+        let currentDate = new Date().toISOString().split("T")[0]
+        document.getElementById("dueDate").min = currentDate
     })
 
     const div = document.createElement("div")
@@ -448,146 +453,154 @@ function toDoForm() {
     submitBtn.addEventListener("click", (e) => {
         e.preventDefault()
 
-        const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
-        currentArr[0].push(newTask)
+        // Form validation
+        if (document.getElementById("title").value.length != 0) {
+            const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
+            currentArr[0].push(newTask)
 
-        document.querySelector(".addTaskBtn").style.display = "flex"
-        submitBtn.style.display = "none"
+            document.querySelector(".addTaskBtn").style.display = "flex"
+            submitBtn.style.display = "none"
 
-        // Appends todo item to DOM
-        const checkBox = checkBoxMaker()
-        checkBox.addEventListener("click", () => {
-            const indexToRemove = arr.indexOf(e)
-            arr.splice(indexToRemove, 1)
-        })
-        const itemContainer = document.createElement("div")
-        itemContainer.classList.add("itemContainer")
-        if (document.getElementById("priority").value == "High") {
-            itemContainer.classList.add("priorityOne")
-        }
-        else if (document.getElementById("priority").value == "Medium") {
-            itemContainer.classList.add("priorityTwo")
-        }
-        else {
-            itemContainer.classList.add("priorityThree")
-        }
-        const itemDetails = document.createElement("div")
-        itemDetails.classList.add("itemDetails")
-        itemDetails.addEventListener("click", () => {
-            // Expand to-do item to edit/see
-            const dialog = document.createElement("dialog")
-            dialog.addEventListener("click", () => {
-                container.removeChild(dialog)
+            // Appends todo item to DOM
+            const checkBox = checkBoxMaker()
+            checkBox.addEventListener("click", () => {
+                const indexToRemove = arr.indexOf(e)
+                arr.splice(indexToRemove, 1)
             })
-
-            const dialogFormContainer = document.createElement("div")
-            dialogFormContainer.addEventListener("click", (e) => {
-                e.stopPropagation()
-            })
-
-            const dialogForm = document.createElement("form")
-
-            const itemHeader = document.createElement("h3")
-            itemHeader.textContent = "Edit task"
-            itemHeader.classList.add("formHeader")
-            
-            const dialogTitle = document.createElement("input")
-            dialogTitle.value = itemTitle.textContent
-            const dialogDesc = document.createElement("input")
-            dialogDesc.value = itemDesc.textContent
-            const dialogDueDate = document.createElement("input")
-            dialogDueDate.type = "date"
-            dialogDueDate.value = newTask.dueDate
-            const dialogPriority = document.createElement("select")
-            dialogPriority.value = priority.textContent
-
-            const dialogPriorityOne = document.createElement("option")
-            dialogPriorityOne.value = "High"
-            dialogPriorityOne.textContent = "High"
-            const dialogPriorityTwo = document.createElement("option")
-            dialogPriorityTwo.value = "Medium"
-            dialogPriorityTwo.textContent = "Medium"
-            const dialogPriorityThree = document.createElement("option")
-            dialogPriorityThree.value = "Low"
-            dialogPriorityThree.textContent = "Low"
-
-            if (newTask.priority == "High") {
-                dialogPriorityOne.setAttribute("selected", "selected")
+            const itemContainer = document.createElement("div")
+            itemContainer.classList.add("itemContainer")
+            if (document.getElementById("priority").value == "High") {
+                itemContainer.classList.add("priorityOne")
             }
-            else if (newTask.priority == "Medium") {
-                dialogPriorityTwo.setAttribute("selected", "selected")
+            else if (document.getElementById("priority").value == "Medium") {
+                itemContainer.classList.add("priorityTwo")
             }
             else {
-                dialogPriorityThree.setAttribute("selected", "selected")
+                itemContainer.classList.add("priorityThree")
             }
+            const itemDetails = document.createElement("div")
+            itemDetails.classList.add("itemDetails")
+            itemDetails.addEventListener("click", () => {
+                // Expand to-do item to edit/see
+                const dialog = document.createElement("dialog")
+                dialog.addEventListener("click", () => {
+                    container.removeChild(dialog)
+                })
 
-            const editBtn = document.createElement("button")
-            editBtn.textContent = "Edit"
-            editBtn.type = "button"
-            editBtn.addEventListener("click", () => {
-                newTask.title = dialogTitle.value
-                itemTitle.textContent = newTask.title
+                const dialogFormContainer = document.createElement("div")
+                dialogFormContainer.addEventListener("click", (e) => {
+                    e.stopPropagation()
+                })
 
-                newTask.description = dialogDesc.value
-                itemDesc.textContent = newTask.description
+                const dialogForm = document.createElement("form")
 
-                newTask.dueDate = dialogDueDate.value
-
-                newTask.priority = dialogPriority.value
+                const itemHeader = document.createElement("h3")
+                itemHeader.textContent = "Edit task"
+                itemHeader.classList.add("formHeader")
                 
+                const dialogTitle = document.createElement("input")
+                dialogTitle.value = itemTitle.textContent
+                const dialogDesc = document.createElement("input")
+                dialogDesc.value = itemDesc.textContent
+                const dialogDueDate = document.createElement("input")
+                dialogDueDate.type = "date"
+                dialogDueDate.value = newTask.dueDate
+                let currentDate = new Date().toISOString().split("T")[0]
+                dialogDueDate.min = currentDate
+                const dialogPriority = document.createElement("select")
+                dialogPriority.value = priority.textContent
+
+                const dialogPriorityOne = document.createElement("option")
+                dialogPriorityOne.value = "High"
+                dialogPriorityOne.textContent = "High"
+                const dialogPriorityTwo = document.createElement("option")
+                dialogPriorityTwo.value = "Medium"
+                dialogPriorityTwo.textContent = "Medium"
+                const dialogPriorityThree = document.createElement("option")
+                dialogPriorityThree.value = "Low"
+                dialogPriorityThree.textContent = "Low"
+
                 if (newTask.priority == "High") {
-                    itemContainer.style.borderRight = "3px solid orangered"
+                    dialogPriorityOne.setAttribute("selected", "selected")
                 }
                 else if (newTask.priority == "Medium") {
-                    itemContainer.style.borderRight = "3px solid orange"
+                    dialogPriorityTwo.setAttribute("selected", "selected")
                 }
                 else {
-                    itemContainer.style.borderRight = "3px solid seagreen"
+                    dialogPriorityThree.setAttribute("selected", "selected")
                 }
 
-                container.removeChild(dialog)
+                const editBtn = document.createElement("button")
+                editBtn.textContent = "Edit"
+                editBtn.type = "button"
+                editBtn.addEventListener("click", () => {
+                    if (dialogTitle.value.length != 0) {
+                        newTask.title = dialogTitle.value
+                        itemTitle.textContent = newTask.title
+
+                        newTask.description = dialogDesc.value
+                        itemDesc.textContent = newTask.description
+
+                        newTask.dueDate = dialogDueDate.value
+
+                        newTask.priority = dialogPriority.value
+                        
+                        if (newTask.priority == "High") {
+                            itemContainer.style.borderRight = "3px solid orangered"
+                        }
+                        else if (newTask.priority == "Medium") {
+                            itemContainer.style.borderRight = "3px solid orange"
+                        }
+                        else {
+                            itemContainer.style.borderRight = "3px solid seagreen"
+                        }
+
+                        container.removeChild(dialog)
+                    }
+                    
+                })
+
+                dialogPriority.appendChild(dialogPriorityOne)
+                dialogPriority.appendChild(dialogPriorityTwo)
+                dialogPriority.appendChild(dialogPriorityThree)
+            
+                dialogForm.appendChild(itemHeader)
+                dialogForm.appendChild(dialogTitle)
+                dialogForm.appendChild(dialogDesc)
+                dialogForm.appendChild(dialogDueDate)
+                dialogForm.appendChild(dialogPriority)
+                dialogForm.appendChild(editBtn)
+
+                dialogFormContainer.appendChild(dialogForm)
+                dialog.appendChild(dialogFormContainer)
+                container.prepend(dialog)
+                dialog.showModal()
             })
 
-            dialogPriority.appendChild(dialogPriorityOne)
-            dialogPriority.appendChild(dialogPriorityTwo)
-            dialogPriority.appendChild(dialogPriorityThree)
+            const itemTitle = document.createElement("div")
+            itemTitle.classList.add("previewTitle")
+            itemTitle.textContent = newTask.title
+            const itemDesc = document.createElement("div")
+            itemDesc.classList.add("previewDesc")
+            itemDesc.textContent = newTask.description
+            const itemDueDate = document.createElement("div")
+            itemDueDate.classList.add("previewDueDate")
+            itemDueDate.textContent = newTask.dueDate
         
-            dialogForm.appendChild(itemHeader)
-            dialogForm.appendChild(dialogTitle)
-            dialogForm.appendChild(dialogDesc)
-            dialogForm.appendChild(dialogDueDate)
-            dialogForm.appendChild(dialogPriority)
-            dialogForm.appendChild(editBtn)
+            itemDetails.appendChild(itemTitle)
+            itemDetails.appendChild(itemDesc)
+            itemDetails.appendChild(itemDueDate)
+            itemContainer.appendChild(checkBox)
+            itemContainer.appendChild(itemDetails)
 
-            dialogFormContainer.appendChild(dialogForm)
-            dialog.appendChild(dialogFormContainer)
-            container.prepend(dialog)
-            dialog.showModal()
-        })
+            document.getElementById("title").value = ""
+            document.getElementById("description").value = ""
+            document.getElementById("dueDate").value = ""
+            document.getElementById("priority").value = ""
 
-        const itemTitle = document.createElement("div")
-        itemTitle.classList.add("previewTitle")
-        itemTitle.textContent = newTask.title
-        const itemDesc = document.createElement("div")
-        itemDesc.classList.add("previewDesc")
-        itemDesc.textContent = newTask.description
-        const itemDueDate = document.createElement("div")
-        itemDueDate.classList.add("previewDueDate")
-        itemDueDate.textContent = newTask.dueDate
-    
-        itemDetails.appendChild(itemTitle)
-        itemDetails.appendChild(itemDesc)
-        itemDetails.appendChild(itemDueDate)
-        itemContainer.appendChild(checkBox)
-        itemContainer.appendChild(itemDetails)
-
-        document.getElementById("title").value = ""
-        document.getElementById("description").value = ""
-        document.getElementById("dueDate").value = ""
-        document.getElementById("priority").value = ""
-
-        container.appendChild(itemContainer)
-        document.querySelector(".container").removeChild(dialog)
+            container.appendChild(itemContainer)
+            document.querySelector(".container").removeChild(dialog)
+        }
     })
 
     const addTaskHeader = document.createElement("h3")
@@ -602,7 +615,6 @@ function toDoForm() {
     form.appendChild(submitBtn)
     formContainer.appendChild(form)
     dialog.appendChild(formContainer)
-
     return dialog
 }
 
