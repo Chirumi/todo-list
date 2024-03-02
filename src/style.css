@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: "MyFont";
     src: url("./Ubuntu-Regular.ttf");
@@ -18,6 +17,15 @@ body {
     display: flex;
     flex-direction: row;
     color: white;
+}
+
+.newProjectName,
+.projectHeader,
+.previewTitle,
+.previewDesc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .mainContainer {
@@ -184,10 +192,12 @@ main {
 
 .previewTitle {
     font-size: 1.4rem;
+    width: 80%;
 }
 
 .previewDesc {
     opacity: 0.6;
+    width: 80%;
 }
 
 .previewDueDate {
@@ -226,20 +236,17 @@ main {
 
 dialog {
     position: absolute;
-    top: 25%;
-    left: 50%;
+    top: 20%;
+    left: 45%;
     border-radius: 15px;
 }
 
-dialog > div {
-    font-size: 1.3rem;
-}
-
-dialog input {
+dialog input,
+form > textarea {
     height: 30px;
     border: 1px solid black;
     border-radius: 15px;
-    padding: 3px 20px;
+    padding: 8px 20px;
 }
 
 form {
@@ -263,6 +270,7 @@ form > div:nth-of-type(4) {
 }
 
 form > button {
+    font-size: 1.2em;
     border-radius: 8px;
     padding: 5px 10px;
     margin-top: 15px;
@@ -275,7 +283,22 @@ form select {
 }
 
 .formHeader {
+    font-size: 1.5em;
     border-bottom: 1px solid black;
     padding-bottom: 10px;
     margin-bottom: 10px;
+}
+
+form > div {
+    font-size: 1.3em;
+}
+
+form > textarea {
+    height: 100px;
+}
+
+form input,
+form > textarea,
+form select {
+    font-size: 1em;
 }

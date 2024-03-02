@@ -506,7 +506,7 @@ function toDoForm() {
                 
                 const dialogTitle = document.createElement("input")
                 dialogTitle.value = itemTitle.textContent
-                const dialogDesc = document.createElement("input")
+                const dialogDesc = document.createElement("textarea")
                 dialogDesc.value = itemDesc.textContent
                 const dialogDueDate = document.createElement("input")
                 dialogDueDate.type = "date"
