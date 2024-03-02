@@ -49,6 +49,8 @@ function initialInbox() {
         repopulateDOM(inbox)
         document.querySelector(".addTaskBtn").style.display = "flex"
         projectHeader.textContent = "Inbox"
+
+        console.log(inbox)
     })
     // Open "Inbox" project on load
     eraseDOM(container)
@@ -92,6 +94,8 @@ function todayFilter() {
         repopulateDOM(today)
         document.querySelector(".addTaskBtn").style.display = "none"
         projectHeader.textContent = "Today"
+
+        console.log(today)
     })
 
     todayFilterDiv.appendChild(todayFilterPic)
@@ -275,8 +279,19 @@ function repopulateDOM(arr) {
     arr.forEach(e => {
         const checkBox = checkBoxMaker()
         checkBox.addEventListener("click", () => {
-            const indexToRemove = arr.indexOf(e)
-            arr.splice(indexToRemove, 1)
+            for (let i = 0; i < currentArr[0].length; i++){
+                if (currentArr[0][i].data == e.data) {
+                    const removedIndex = currentArr[0][i].data
+                    currentArr[0].splice(i, 1)
+
+                    // CASCADE "data" object value here
+                    for (let x = 0; x < currentArr[0].length; x++) {
+                        if (currentArr[0][x].data > removedIndex) {
+                            currentArr[0][x].data = currentArr[0][x].data - 1
+                        }
+                    }
+                }   
+            }
 
             // Remove todo item from source project when it is removed under "Today" filter
             if (arr == today) {
@@ -297,6 +312,7 @@ function repopulateDOM(arr) {
                     }
                 }
             }
+            console.log(arr)
         })
 
         if (!(arr == today || arr == week)) {
@@ -462,7 +478,10 @@ function toDoForm() {
         // Form validation
         if (document.getElementById("title").value.length != 0) {
             const newTask = new ToDoList(document.getElementById("title").value, document.getElementById("description").value, document.getElementById("dueDate").value, document.getElementById("priority").value)
+            
             currentArr[0].push(newTask)
+            const lastArrayItem = currentArr[0].length - 1
+            newTask.data = `${lastArrayItem}`
 
             document.querySelector(".addTaskBtn").style.display = "flex"
             submitBtn.style.display = "none"
@@ -470,8 +489,20 @@ function toDoForm() {
             // Appends todo item to DOM
             const checkBox = checkBoxMaker()
             checkBox.addEventListener("click", () => {
-                const indexToRemove = arr.indexOf(e)
-                arr.splice(indexToRemove, 1)
+                for (let i = 0; i < currentArr[0].length; i++){
+                    if (currentArr[0][i].data == lastArrayItem) {
+                        const removedIndex = lastArrayItem
+                        currentArr[0].splice(i, 1)
+
+                        // CASCADE "data" object value here
+                        for (let x = 0; x < currentArr[0].length; x++) {
+                            if (currentArr[0][x].data > removedIndex) {
+                                currentArr[0][x].data = currentArr[0][x].data - 1
+                            }
+                        }
+                    }   
+                }
+                    
             })
             const itemContainer = document.createElement("div")
             itemContainer.classList.add("itemContainer")
