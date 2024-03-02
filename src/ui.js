@@ -169,24 +169,35 @@ function ui() {
         submitProjectName.textContent = "Add"
         submitProjectName.addEventListener("click", (e) => {
             e.preventDefault()
+            if (projectName.value.length != 0) {
 
-            const newProjectContainer = document.createElement("div")
-            newProjectContainer.classList.add("newProject")
-            const newProject = document.createElement("button")
-            newProject.textContent = projectName.value
-            newProject.classList.add("newProjectName")
+                const newProjectContainer = document.createElement("div")
+                newProjectContainer.classList.add("newProject")
+                const newProject = document.createElement("button")
+                newProject.textContent = projectName.value
+                newProject.classList.add("newProjectName")
 
-            const removeProject = document.createElement("button")
-            removeProject.textContent = "x"
-            removeProject.classList.add("newProjectRemove")
-            removeProject.addEventListener("click", () => {
-                eraseDOM(container)
-                project.push("TO REMOVE")
-                removeProjectArr()
-                myProjectsDiv.removeChild(newProjectContainer)
-            })
-            
-            newProject.addEventListener("click", () => {
+                const removeProject = document.createElement("button")
+                removeProject.textContent = "x"
+                removeProject.classList.add("newProjectRemove")
+                removeProject.addEventListener("click", () => {
+                    eraseDOM(container)
+                    project.push("TO REMOVE")
+                    removeProjectArr()
+                    myProjectsDiv.removeChild(newProjectContainer)
+                })
+                
+                newProject.addEventListener("click", () => {
+                    eraseDOM(container)
+                    currentArr = []
+                    today = []
+                    currentArr.push(project)
+                    repopulateDOM(project)
+                    document.querySelector(".addTaskBtn").style.display = "flex"
+                    projectHeader.textContent = projectName.value
+                })
+
+                // REDIRECT TO NEW PROJECT
                 eraseDOM(container)
                 currentArr = []
                 today = []
@@ -194,20 +205,12 @@ function ui() {
                 repopulateDOM(project)
                 document.querySelector(".addTaskBtn").style.display = "flex"
                 projectHeader.textContent = projectName.value
-            })
 
-            // REDIRECT TO NEW PROJECT
-            eraseDOM(container)
-            currentArr = []
-            today = []
-            currentArr.push(project)
-            repopulateDOM(project)
-            document.querySelector(".addTaskBtn").style.display = "flex"
-            projectHeader.textContent = projectName.value
-
-            newProjectContainer.appendChild(newProject)
-            newProjectContainer.appendChild(removeProject)
-            myProjectsDiv.appendChild(newProjectContainer)
+                newProjectContainer.appendChild(newProject)
+                newProjectContainer.appendChild(removeProject)
+                myProjectsDiv.appendChild(newProjectContainer)
+            }
+                
         })
 
         addProjForm.appendChild(projectNameTitle)
