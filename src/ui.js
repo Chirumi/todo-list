@@ -336,13 +336,34 @@ function repopulateDOM(arr) {
             editBtn.textContent = "Edit"
             editBtn.type = "button"
             editBtn.addEventListener("click", () => {
-                e.title = dialogTitle.value
-                itemTitle.textContent = e.title
-        
-                e.description = dialogDesc.value
-                itemDesc.textContent = e.description
-        
-                e.dueDate = dialogDueDate.value
+                // Update priority color
+                if (dialogTitle.value.length != 0) {
+                    e.title = dialogTitle.value
+                    itemTitle.textContent = e.title
+
+                    e.description = dialogDesc.value
+                    itemDesc.textContent = e.description
+
+                    e.dueDate = dialogDueDate.value
+
+                    e.priority = dialogPriority.value
+                    
+                    
+                    if (e.priority == "High") {
+                        itemContainer.classList.add("priorityOne")
+                    }
+                    else if (e.priority == "Medium") {
+                        itemContainer.classList.add("priorityTwo")
+                    }
+                    else {
+                        itemContainer.classList.add("priorityThree")
+                    }
+
+                    container.removeChild(dialog)
+                }
+                else {
+                    alert("Please fill in the task's title!")
+                }
             })
 
             dialogPriority.appendChild(dialogPriorityOne)
@@ -593,13 +614,13 @@ function toDoForm() {
                         newTask.priority = dialogPriority.value
                         
                         if (newTask.priority == "High") {
-                            itemContainer.style.borderRight = "3px solid orangered"
+                            itemContainer.classList.add("priorityOne")
                         }
                         else if (newTask.priority == "Medium") {
-                            itemContainer.style.borderRight = "3px solid orange"
+                            itemContainer.classList.add("priorityTwo")
                         }
                         else {
-                            itemContainer.style.borderRight = "3px solid seagreen"
+                            itemContainer.classList.add("priorityThree")
                         }
 
                         container.removeChild(dialog)
