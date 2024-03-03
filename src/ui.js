@@ -360,6 +360,22 @@ function repopulateDOM(arr) {
                     }
 
                     container.removeChild(dialog)
+                    
+                    if (arr == today) {
+                        if (!(e.dueDate == new Date().toISOString().split("T")[0])) {
+                            // Remove from today ONLY
+                            today.splice(today.indexOf(e), 1)
+                            delete e.filter
+                            checkBox.parentElement.remove()
+                        }
+                    }
+                    else if (arr == week) {
+                        if (!(e.dueDate >= currentDate.toISOString().split("T")[0] && projectsArr[x][y].dueDate <= weekAfterCurrentDate)) {
+                            week.splice(week.indexOf(e), 1)
+                            delete e.filter
+                            checkBox.parentElement.remove()
+                        }
+                    }
                 }
                 else {
                     alert("Please fill in the task's title!")
@@ -383,12 +399,12 @@ function repopulateDOM(arr) {
         })
         const checkBox = checkBoxMaker()
         checkBox.addEventListener("click", () => {
-            // Remove todo item from source project when it is removed under "Today" filter
             if (arr == today) {
                 let toDoRemove = today.indexOf(e)
                 today[toDoRemove].status = "TO REMOVE"
                 today.splice(today.indexOf(e), 1)
 
+                // Remove todo item from source project when it is removed under "Today" filter
                 for (let x = 0; x < projectsArr.length; x++) {
                     for (let y = 0; y < projectsArr[x].length; y++) {
                         if (projectsArr[x][y].filter == "today" && projectsArr[x][y].status == "TO REMOVE") {
