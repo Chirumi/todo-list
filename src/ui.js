@@ -277,47 +277,12 @@ function inputMaker(input, type, idName) {
 
 function repopulateDOM(arr) {
     arr.forEach(e => {
-        const checkBox = checkBoxMaker()
-        checkBox.addEventListener("click", () => {
-            for (let i = 0; i < currentArr[0].length; i++){
-                if (currentArr[0][i].data == e.data) {
-                    const removedIndex = currentArr[0][i].data
-                    currentArr[0].splice(i, 1)
-
-                    // CASCADE "data" object value here
-                    for (let x = 0; x < currentArr[0].length; x++) {
-                        if (currentArr[0][x].data > removedIndex) {
-                            currentArr[0][x].data = currentArr[0][x].data - 1
-                        }
-                    }
-                }   
-            }
-
-            // Remove todo item from source project when it is removed under "Today" filter
-            if (arr == today) {
-                for (let x = 0; x < projectsArr.length; x++) {
-                    for (let y = 0; y < projectsArr[x].length; y++) {
-                        if (projectsArr[x][y].filter == "today") {
-                            projectsArr[x].splice(y, 1)
-                        }
-                    }
-                }
-            }
-            if (arr == week) {
-                for (let x = 0; x < projectsArr.length; x++) {
-                    for (let y = 0; y < projectsArr[x].length; y++) {
-                        if (projectsArr[x][y].filter == "week") {
-                            projectsArr[x].splice(y, 1)
-                        }
-                    }
-                }
-            }
-            console.log(arr)
-        })
-
         if (!(arr == today || arr == week)) {
             delete e.filter // Remove filter property used to delete todo items from projects when
         // they are deleted under "Today" filter tab
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].data = i
+            }
         }
 
         const itemContainer = document.createElement("div")
@@ -394,6 +359,53 @@ function repopulateDOM(arr) {
             dialog.appendChild(dialogFormContainer)
             container.prepend(dialog)
             dialog.showModal()
+        })
+        const checkBox = checkBoxMaker()
+        checkBox.addEventListener("click", () => {
+            // arr.splice(arr.indexOf(e), 1)
+            if (arr == inbox) {
+                for (let i = 0; i < currentArr[0].length; i++){
+                    if (currentArr[0][i].data == e.data) {
+                        const removedIndex = currentArr[0][i].data
+                        currentArr[0].splice(i, 1)
+
+                        // CASCADE "data" object value here
+                        for (let x = 0; x < currentArr[0].length; x++) {
+                            if (currentArr[0][x].data > removedIndex) {
+                                currentArr[0][x].data = currentArr[0][x].data - 1
+                            }
+                        }
+                    }   
+                }
+            }
+
+            // Remove todo item from source project when it is removed under "Today" filter
+            if (arr == today) {
+                let toDoRemove = today.indexOf(e)
+                today[toDoRemove].status = "TO REMOVE"
+                today.splice(today.indexOf(e), 1)
+
+                for (let x = 0; x < projectsArr.length; x++) {
+                    for (let y = 0; y < projectsArr[x].length; y++) {
+                        if (projectsArr[x][y].filter == "today" && projectsArr[x][y].status == "TO REMOVE") {
+                            projectsArr[x].splice(y, 1)
+                        }
+                    }
+                }
+            }
+            if (arr == week) {
+                let toDoRemove = week.indexOf(e)
+                week[toDoRemove].status = "TO REMOVE"
+                week.splice(week.indexOf(e), 1)
+
+                for (let x = 0; x < projectsArr.length; x++) {
+                    for (let y = 0; y < projectsArr[x].length; y++) {
+                        if (projectsArr[x][y].filter == "week" && projectsArr[x][y].status == "TO REMOVE") {
+                            projectsArr[x].splice(y, 1)
+                        }
+                    }
+                }
+            }
         })
 
         const itemTitle = document.createElement("div")
