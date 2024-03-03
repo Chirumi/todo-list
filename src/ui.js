@@ -49,7 +49,6 @@ function initialInbox() {
         repopulateDOM(inbox)
         document.querySelector(".addTaskBtn").style.display = "flex"
         projectHeader.textContent = "Inbox"
-
         console.log(inbox)
     })
     // Open "Inbox" project on load
@@ -94,7 +93,6 @@ function todayFilter() {
         repopulateDOM(today)
         document.querySelector(".addTaskBtn").style.display = "none"
         projectHeader.textContent = "Today"
-
         console.log(today)
     })
 
@@ -132,6 +130,7 @@ function weekFilter() {
         repopulateDOM(week)
         document.querySelector(".addTaskBtn").style.display = "none"
         projectHeader.textContent = "This week"
+        console.log(week)
     })
 
     weekFilterDiv.appendChild(weekPic)
@@ -199,6 +198,7 @@ function ui() {
                     repopulateDOM(project)
                     document.querySelector(".addTaskBtn").style.display = "flex"
                     projectHeader.textContent = projectName.value
+                    console.log(project)
                 })
 
                 // REDIRECT TO NEW PROJECT
@@ -362,23 +362,6 @@ function repopulateDOM(arr) {
         })
         const checkBox = checkBoxMaker()
         checkBox.addEventListener("click", () => {
-            // arr.splice(arr.indexOf(e), 1)
-            if (arr == inbox) {
-                for (let i = 0; i < currentArr[0].length; i++){
-                    if (currentArr[0][i].data == e.data) {
-                        const removedIndex = currentArr[0][i].data
-                        currentArr[0].splice(i, 1)
-
-                        // CASCADE "data" object value here
-                        for (let x = 0; x < currentArr[0].length; x++) {
-                            if (currentArr[0][x].data > removedIndex) {
-                                currentArr[0][x].data = currentArr[0][x].data - 1
-                            }
-                        }
-                    }   
-                }
-            }
-
             // Remove todo item from source project when it is removed under "Today" filter
             if (arr == today) {
                 let toDoRemove = today.indexOf(e)
@@ -393,7 +376,7 @@ function repopulateDOM(arr) {
                     }
                 }
             }
-            if (arr == week) {
+            else if (arr == week) {
                 let toDoRemove = week.indexOf(e)
                 week[toDoRemove].status = "TO REMOVE"
                 week.splice(week.indexOf(e), 1)
@@ -404,6 +387,21 @@ function repopulateDOM(arr) {
                             projectsArr[x].splice(y, 1)
                         }
                     }
+                }
+            } 
+            else {
+                for (let i = 0; i < currentArr[0].length; i++){
+                    if (currentArr[0][i].data == e.data) {
+                        const removedIndex = currentArr[0][i].data
+                        currentArr[0].splice(i, 1)
+
+                        // CASCADE "data" object value here
+                        for (let x = 0; x < currentArr[0].length; x++) {
+                            if (currentArr[0][x].data > removedIndex) {
+                                currentArr[0][x].data = currentArr[0][x].data - 1
+                            }
+                        }
+                    }   
                 }
             }
         })
