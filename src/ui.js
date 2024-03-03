@@ -360,9 +360,12 @@ function repopulateDOM(arr) {
                     }
 
                     container.removeChild(dialog)
+
+                    let currentDate =  new Date().toISOString().split("T")[0]
+                    let weekAfterCurrentDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
                     
                     if (arr == today) {
-                        if (!(e.dueDate == new Date().toISOString().split("T")[0])) {
+                        if (!(e.dueDate == currentDate)) {
                             // Remove from today ONLY
                             today.splice(today.indexOf(e), 1)
                             delete e.filter
@@ -370,7 +373,7 @@ function repopulateDOM(arr) {
                         }
                     }
                     else if (arr == week) {
-                        if (!(e.dueDate >= currentDate.toISOString().split("T")[0] && projectsArr[x][y].dueDate <= weekAfterCurrentDate)) {
+                        if (!(e.dueDate >= currentDate && e.dueDate <= weekAfterCurrentDate)) {
                             week.splice(week.indexOf(e), 1)
                             delete e.filter
                             checkBox.parentElement.remove()
